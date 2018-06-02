@@ -2,13 +2,13 @@
 <search>
   <entry>
     <title><![CDATA[Temp]]></title>
-    <url>%2F2018%2F06%2F01%2FTemp%2F</url>
-    <content type="text"><![CDATA[Temp Some Book 《前方的路》 阮一峰 URL：https://road.ruanyifeng.com 目前进度：https://road.ruanyifeng.com/2005/2005-02-12-almost-famous.html 《未来世界的幸存者》 阮一峰 URL：http://survivor.ruanyifeng.com/index.html 基本看完了 《熵：一种新的世界观》（上海译文出版社，1987）。 《未来 / 人类 / 时间 简史》 Some SoftWare 安装 MobaXterm 测试安装 Sublime Something to Learn 搭建博客： https://www.google.com.hk/search?q=使用Hexo写博客&amp;oq=使用Hexo写博客&amp;aqs=chrome..69i57.4747j0j1&amp;sourceid=chrome&amp;ie=UTF-8 https://baoyuzhang.github.io/2017/05/12/[Hexo搭建独立博客全纪录](三)使用Hexo搭建博客/ 具体操作： http://tengj.top/2016/02/22/hexo1/ http://www.cnblogs.com/sheldonxu/archive/2012/09/17/2688281.html Something to Evernote IDEA 注意 IDEA 对 Spring 的 XML 配置文件操作的删除 xsd 约束文件现象！ 211171974302 - 530267 https://www.jetbrains.com/help/idea/sending-feedback.html Alt + F7 快捷键：查找类，方法，字段在项目中的调用情况 Ctrl + F7 快捷键：查找类，方法，字段在当前文件中的调用情况 Ctrl + Shift + I 快捷键：在类，方法，字段处弹窗查看定义逻辑 Ctrl + Q 快捷键：在类，方法，字段处显示文档和头信息，头信息比如类定义，方法定义，字段定义 Ctrl + Alt + U 展示类的 UML 图，需要在单独的新标签显示加上 Shift. IDEA 的 Git 操作：在本地创建分支，合并分支，解决冲突！！！ Shift + Alt + F10：打开 Run 弹窗，选择对应的 Run 或者 Debug 或者插件的相关运行选项。 Shift + Alt + F 将类或者文件加入收藏，后面用 Alt + 2 打开目录。 设计模式进度： https://love2.io/@webeta/doc/design-pattern-java/%E6%89%A9%E5%B1%95%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD%E2%80%94%E2%80%94%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F%EF%BC%88%E5%9B%9B%EF%BC%89.md PPT 演讲经验总结 特效 Lambda 初体验不应该旋转入图，应该和风格统一从下往上出现 最好举例的 Stream 表达式都能有结果 Some Temp Words 思考的乐趣：https://www.blog.lovejade.cn/2016/03/25/the-pleasure-of-thinking.html 博客：https://jeffjade.com/page/3/ Some video 美剧《追缉：炸弹客》（ Manhunt: Unabomber） 网剧：白夜追凶]]></content>
+    <url>%2F2018%2F06%2F01%2FStart%2F</url>
+    <content type="text"><![CDATA[Start 博客搭建于 20180601，儿童节做出的决定。 目前定位于分享技术和个人思考，狭义来讲技术在最近一段时间是开发工具 IntelliJ IDEA 的一些最佳实践，个人思考在最近一段时间是关于一些书的读后感。 目前对 Github + Hexo + NexT 刚开始熟悉，有建议欢迎联系邮箱。 Ernest Hemingway once wrote:” The world is a fine place，and worth fighting for.” I agree with the second part.]]></content>
       <categories>
-        <category>default_category</category>
+        <category>default</category>
       </categories>
       <tags>
-        <tag>default_tag</tag>
+        <tag>default</tag>
       </tags>
   </entry>
 </search>
