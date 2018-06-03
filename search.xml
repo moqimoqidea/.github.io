@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2018%2F06%2F03%2FTest%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[Start]]></title>
     <url>%2F2018%2F06%2F01%2FStart%2F</url>
     <content type="text"><![CDATA[Start 博客搭建于 20180601，儿童节做出的决定。 目前定位于分享技术和个人思考，狭义来讲技术在最近一段时间是开发工具 IntelliJ IDEA 的一些最佳实践，个人思考在最近一段时间是关于一些书的读后感。 目前对 Github + Hexo + NexT 刚开始熟悉，有建议欢迎联系邮箱。 Ernest Hemingway once wrote:” The world is a fine place，and worth fighting for.” I agree with the second part.]]></content>
