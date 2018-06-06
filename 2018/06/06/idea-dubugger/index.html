@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="IDEA - Debugger 经验总结本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
+<meta name="description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
 <meta name="keywords" content="idea">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IDEA - Debugger 经验总结">
 <meta property="og:url" content="http://moqimoqidea.github.io/2018/06/06/idea-dubugger/index.html">
 <meta property="og:site_name" content="moqi&#39;s blog">
-<meta property="og:description" content="IDEA - Debugger 经验总结本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
+<meta property="og:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analyze_Stacktrace.gif">
-<meta property="og:updated_time" content="2018-06-06T15:51:19.918Z">
+<meta property="og:updated_time" content="2018-06-06T15:58:24.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDEA - Debugger 经验总结">
-<meta name="twitter:description" content="IDEA - Debugger 经验总结本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
+<meta name="twitter:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png">
 
 
@@ -373,7 +373,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  418
+                  412
                 </span>
               
 
@@ -410,7 +410,7 @@
       
 
       
-        <h1 id="IDEA-Debugger-经验总结"><a href="#IDEA-Debugger-经验总结" class="headerlink" title="IDEA - Debugger 经验总结"></a>IDEA - Debugger 经验总结</h1><p>本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。</p>
+        <p>本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。</p>
 <a id="more"></a> 
 <h2 id="分析外部堆栈跟踪"><a href="#分析外部堆栈跟踪" class="headerlink" title="分析外部堆栈跟踪"></a>分析外部堆栈跟踪</h2><p>把报错信息复制到 Analyze -&gt; Analyze Stacktrace，快速进入程序块。开发中经常可以看到生产环境有错误日志，依照此方法快速将日志导入项目，定位问题。</p>
 <p>场景：</p>
@@ -645,7 +645,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IDEA-Debugger-经验总结"><span class="nav-number">1.</span> <span class="nav-text">IDEA - Debugger 经验总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析外部堆栈跟踪"><span class="nav-number">1.1.</span> <span class="nav-text">分析外部堆栈跟踪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回到前一个堆栈帧"><span class="nav-number">1.2.</span> <span class="nav-text">返回到前一个堆栈帧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制从当前方法返回"><span class="nav-number">1.3.</span> <span class="nav-text">强制从当前方法返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出一个异常"><span class="nav-number">1.4.</span> <span class="nav-text">抛出一个异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新加载修改的类"><span class="nav-number">1.5.</span> <span class="nav-text">重新加载修改的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-Java-Stream-操作"><span class="nav-number">1.6.</span> <span class="nav-text">分析 Java Stream 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析外部堆栈跟踪"><span class="nav-number">1.</span> <span class="nav-text">分析外部堆栈跟踪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回到前一个堆栈帧"><span class="nav-number">2.</span> <span class="nav-text">返回到前一个堆栈帧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制从当前方法返回"><span class="nav-number">3.</span> <span class="nav-text">强制从当前方法返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出一个异常"><span class="nav-number">4.</span> <span class="nav-text">抛出一个异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新加载修改的类"><span class="nav-number">5.</span> <span class="nav-text">重新加载修改的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-Java-Stream-操作"><span class="nav-number">6.</span> <span class="nav-text">分析 Java Stream 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -679,7 +679,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">981</span>
+    <span title="Site words total count">1,013</span>
   
 </div>
 
