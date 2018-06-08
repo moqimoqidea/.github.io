@@ -81,20 +81,25 @@
 
 
 
-<meta name="description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
+<meta name="description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图提交较大，请耐心等待。">
 <meta name="keywords" content="idea">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IDEA - Debugger 经验总结">
 <meta property="og:url" content="http://moqimoqidea.github.io/2018/06/06/idea-dubugger/index.html">
 <meta property="og:site_name" content="moqi&#39;s blog">
-<meta property="og:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
+<meta property="og:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图提交较大，请耐心等待。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analyze_Stacktrace.gif">
-<meta property="og:updated_time" content="2018-06-06T15:58:24.788Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/drop_frame.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/force_return.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/throw_expection.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/reload_change_class.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/stream_trace.gif">
+<meta property="og:updated_time" content="2018-06-08T17:37:29.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDEA - Debugger 经验总结">
-<meta name="twitter:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。">
+<meta name="twitter:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图提交较大，请耐心等待。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png">
 
 
@@ -373,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  412
+                  440
                 </span>
               
 
@@ -410,7 +415,7 @@
       
 
       
-        <p>本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，后面会将图补齐。</p>
+        <p>本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图提交较大，请耐心等待。</p>
 <a id="more"></a> 
 <h2 id="分析外部堆栈跟踪"><a href="#分析外部堆栈跟踪" class="headerlink" title="分析外部堆栈跟踪"></a>分析外部堆栈跟踪</h2><p>把报错信息复制到 Analyze -&gt; Analyze Stacktrace，快速进入程序块。开发中经常可以看到生产环境有错误日志，依照此方法快速将日志导入项目，定位问题。</p>
 <p>场景：</p>
@@ -418,11 +423,20 @@
 <p>操作：</p>
 <p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analyze_Stacktrace.gif" alt="operate01"></p>
 <h2 id="返回到前一个堆栈帧"><a href="#返回到前一个堆栈帧" class="headerlink" title="返回到前一个堆栈帧"></a>返回到前一个堆栈帧</h2><p>IDEA 可在程序的执行流程中回退到先前的堆栈帧。要求不是最上面入口方法，选择 Drop Frame 后，等于未进入调用的方法。请注意：已经对全局状态进行的更改不会被恢复，只有本地变量会被重置。</p>
+<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/drop_frame.gif" alt="drop_frame"></p>
 <h2 id="强制从当前方法返回"><a href="#强制从当前方法返回" class="headerlink" title="强制从当前方法返回"></a>强制从当前方法返回</h2><p>在当前堆栈帧中右键单击选择 Force Return 然后根据需要的返回类型输入即可。</p>
+<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/force_return.gif" alt="force_return"></p>
 <h2 id="抛出一个异常"><a href="#抛出一个异常" class="headerlink" title="抛出一个异常"></a>抛出一个异常</h2><p>在当前堆栈帧中右键单击选择 Throw Exception 然后手动输入异常即可，比如 new NullPointerException();</p>
+<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/throw_expection.gif" alt="throw_exception"></p>
 <h2 id="重新加载修改的类"><a href="#重新加载修改的类" class="headerlink" title="重新加载修改的类"></a>重新加载修改的类</h2><p>一般而言应用于在 Debugger 时发现未调用的方法有需要改动的地方，这时候修改未调用的方法，然后选择 Run -&gt; Reload Changed Classes, 快捷键 Alt + U, 然后 A. 这时候 Debugger 继续进行调用，则执行的调用方法逻辑为重新编译之后。底层逻辑是用到 JVM 的 hotSwap.</p>
+<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/reload_change_class.gif" alt="reload_change_class"></p>
 <h2 id="分析-Java-Stream-操作"><a href="#分析-Java-Stream-操作" class="headerlink" title="分析 Java Stream 操作"></a>分析 Java Stream 操作</h2><p>IDEA Debugger 时可以可视化 Java Stream 进行的操作和对值数据的影响，需要断点停留在 Stream 上点击 Trace Current Stream Chain 按钮。</p>
+<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/stream_trace.gif" alt="stream_trace"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote class="blockquote-center"><a href="https://www.jetbrains.com/help/idea/analyzing-external-stacktraces.html" target="_blank" rel="noopener">https://www.jetbrains.com/help/idea/analyzing-external-stacktraces.html</a></blockquote> 
+
+<blockquote class="blockquote-center"><a href="https://www.jetbrains.com/help/idea/altering-the-program-s-execution-flow.html" target="_blank" rel="noopener">https://www.jetbrains.com/help/idea/altering-the-program-s-execution-flow.html</a></blockquote> 
+
+<blockquote class="blockquote-center"><a href="https://www.jetbrains.com/help/idea/analyze-java-stream-operations.html" target="_blank" rel="noopener">https://www.jetbrains.com/help/idea/analyze-java-stream-operations.html</a></blockquote> 
       
     </div>
     
@@ -679,7 +693,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">1,013</span>
+    <span title="Site words total count">1.0k</span>
   
 </div>
 
