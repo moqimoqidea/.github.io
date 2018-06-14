@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="moqi&#39;s blog">
 <meta property="og:description" content="本文主要介绍开发中一些日志的常用操作。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-06T15:57:25.000Z">
+<meta property="og:updated_time" content="2018-06-14T06:13:29.534Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 查看日志常用命令">
 <meta name="twitter:description" content="本文主要介绍开发中一些日志的常用操作。">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  453
+                  450
                 </span>
               
 
@@ -448,9 +448,9 @@
 </ul>
 <h2 id="按行号查看-过滤出关键字附近的日志"><a href="#按行号查看-过滤出关键字附近的日志" class="headerlink" title="按行号查看 - 过滤出关键字附近的日志"></a>按行号查看 - 过滤出关键字附近的日志</h2><ol>
 <li>cat -n test.log |grep “debug”  得到关键日志的行号</li>
-<li>cat -n test.log |tail -n +92|head -n 20  选择关键字所在的中间一行. 然后查看这个关键字前 10 行和后 10 行的日志:<ul>
-<li>tail -n +92 表示查询 92 行之后的日志</li>
-<li>head -n 20 则表示在前面的查询结果里再查前 20 条记录</li>
+<li>cat -n test.log |tail -n +92|head -n 20  选择关键字所在的中间一行. 然后查看这个关键字后 20 行的日志:<ul>
+<li>tail -n +92 表示查询第 92 行之后的日志</li>
+<li>head -n 20 则表示在前面的查询结果里再查后 20 条记录</li>
 </ul>
 </li>
 </ol>
