@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[test_mac_blog]]></title>
-    <url>%2F2018%2F08%2F18%2Ftest-mac-blog%2F</url>
-    <content type="text"><![CDATA[本文主要测试使用 Mac 来使用 Hexo。 Hexo blog by MacSome words in here.]]></content>
+    <title><![CDATA[Hexo-Blog-By-Mac]]></title>
+    <url>%2F2018%2F08%2F18%2FHexo-Blog-By-Mac%2F</url>
+    <content type="text"><![CDATA[本文主要测试 Mac 来发表 Hexo blog. Hexo blog by MacSome words in here.]]></content>
       <tags>
         <tag>test</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[IDEA - Debugger 经验总结]]></title>
-    <url>%2F2018%2F06%2F06%2Fidea-dubugger%2F</url>
+    <url>%2F2018%2F06%2F06%2FIDEA-Debugger%2F</url>
     <content type="text"><![CDATA[本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图体积较大，请耐心等待。 觉得图比较小的单击查看大图。 分析外部堆栈跟踪把报错信息复制到 Analyze -&gt; Analyze Stacktrace，快速进入程序块。开发中经常可以看到生产环境有错误日志，依照此方法快速将日志导入项目，定位问题。 场景： 操作： 返回到前一个堆栈帧IDEA 可在程序的执行流程中回退到先前的堆栈帧。要求不是最上面入口方法，选择 Drop Frame 后，等于未进入调用的方法。请注意：已经对全局状态进行的更改不会被恢复，只有本地变量会被重置。 强制从当前方法返回在当前堆栈帧中右键单击选择 Force Return 然后根据需要的返回类型输入即可。 抛出一个异常在当前堆栈帧中右键单击选择 Throw Exception 然后手动输入异常即可，比如 new NullPointerException(); 重新加载修改的类一般而言应用于在 Debugger 时发现未调用的方法有需要改动的地方，这时候修改未调用的方法，然后选择 Run -&gt; Reload Changed Classes, 快捷键 Alt + U, 然后 A. 这时候 Debugger 继续进行调用，则执行的调用方法逻辑为重新编译之后。底层逻辑是用到 JVM 的 hotSwap. 分析 Java Stream 操作IDEA Debugger 时可以可视化 Java Stream 进行的操作和对值数据的影响，需要断点停留在 Stream 上点击 Trace Current Stream Chain 按钮。 参考https://www.jetbrains.com/help/idea/analyzing-external-stacktraces.html https://www.jetbrains.com/help/idea/altering-the-program-s-execution-flow.html https://www.jetbrains.com/help/idea/analyze-java-stream-operations.html]]></content>
       <tags>
         <tag>idea</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[image test]]></title>
-    <url>%2F2018%2F06%2F04%2Fimage-test%2F</url>
+    <title><![CDATA[Image - Test]]></title>
+    <url>%2F2018%2F06%2F04%2FImage-Test%2F</url>
     <content type="text"><![CDATA[本文测试使用 Github 提供的图床，包含一静一动两张图。]]></content>
       <tags>
         <tag>test</tag>
@@ -26,7 +26,7 @@
   </entry>
   <entry>
     <title><![CDATA[Linux 查看日志常用命令]]></title>
-    <url>%2F2018%2F06%2F03%2FLinux-Check-log-commands%2F</url>
+    <url>%2F2018%2F06%2F03%2FLinux-Check-Log-Commands%2F</url>
     <content type="text"><![CDATA[本文主要介绍开发中一些日志的常用操作。 tailn 是显示行号；相当于 nl 命令；例子如下： tail -100f test.log 实时监控 100 行日志 tail -n 10 test.log 查询日志尾部最后 10 行的日志; tail -n +10 test.log 查询 10 行之后的所有日志; head跟 tail 是相反的，tail 是看后多少行日志；例子如下： head -n 10 test.log 查询日志文件中的头 10 行日志; head -n -10 test.log 查询日志文件除了最后 10 行的其他所有日志; cattac 是倒序查看，是 cat 单词反写；例子如下： cat -n test.log |grep “debug” 查询关键字的日志 vim进入编辑查找：vi(vim) 进入vim编辑模式： vim filename vim +n filename 进入特定行号日志 输入命令“set nu” 显示行号 输入“/关键字”,按enter键查找 查找下一个，按“n”即可 退出：按ESC键后，接着再输入:号时，vi会在屏幕的最下方等待我们输入命令 wq! 保存退出； q! 不保存退出； 切换方向 /关键字 注：正向查找，按n键把光标移动到下一个符合条件的地方 ?关键字 注：反向查找，按shift+n 键，把光标移动到下一个符合条件的 搜索关键字附近的日志 最常用的：cat -n filename |grep “关键字” 其他情况： cat filename | grep -C 5 ‘关键字’ (显示日志里匹配字串那行以及前后5行) cat filename | grep -B 5 ‘关键字’ (显示匹配字串及前5行) cat filename | grep -A 5 ‘关键字’ (显示匹配字串及后5行) 按行号查看 - 过滤出关键字附近的日志 cat -n test.log |grep “debug” 得到关键日志的行号 cat -n test.log |tail -n +92|head -n 20 选择关键字所在的中间一行. 然后查看这个关键字后 20 行的日志: tail -n +92 表示查询第 92 行之后的日志 head -n 20 则表示在前面的查询结果里再查后 20 条记录 根据日期查询日志sed -n ‘/2014-12-17 16:17:20/,/2014-12-17 16:17:36/p’ test.log 特别说明:上面的两个日期必须是日志中打印出来的日志，否则无效； 先 grep ‘2014-12-17 16:17:20’ test.log 来确定日志中是否有该 时间点 日志内容特别多，打印在屏幕上不方便查看 使用 more 和 less 命令，如： cat -n test.log |grep “debug” |more 这样就分页打印了,通过点击空格键翻页 使用 &gt;xxx.txt 将其保存到文件中，到时可以拉下这个文件分析，如：cat -n test.log |grep “debug” &gt; debug.txt 参考https://blog.csdn.net/yangkai_hudong/article/details/47783487 https://www.cnblogs.com/hunt/p/7064886.html https://blog.csdn.net/dingnning/article/details/7189862]]></content>
       <categories>
         <category>tech</category>
