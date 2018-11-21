@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="tech," />
+  <meta name="keywords" content="default," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="本文主要介绍开发中一些日志的常用操作。">
-<meta name="keywords" content="tech">
+<meta name="description" content="本文简要讨论了博客起源。">
+<meta name="keywords" content="default">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 日志相关命令整理">
-<meta property="og:url" content="http://moqimoqidea.github.io/2018/06/03/Linux-Check-Log-Commands/index.html">
+<meta property="og:title" content="Start">
+<meta property="og:url" content="http://moqimoqidea.github.io/2017/06/01/Start/index.html">
 <meta property="og:site_name" content="moqi&#39;s blog">
-<meta property="og:description" content="本文主要介绍开发中一些日志的常用操作。">
+<meta property="og:description" content="本文简要讨论了博客起源。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-19T04:25:57.818Z">
+<meta property="og:updated_time" content="2017-06-02T15:52:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux 日志相关命令整理">
-<meta name="twitter:description" content="本文主要介绍开发中一些日志的常用操作。">
+<meta name="twitter:title" content="Start">
+<meta name="twitter:description" content="本文简要讨论了博客起源。">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://moqimoqidea.github.io/2018/06/03/Linux-Check-Log-Commands/"/>
+  <link rel="canonical" href="http://moqimoqidea.github.io/2017/06/01/Start/"/>
 
 
 
 
 
-  <title>Linux 日志相关命令整理 | moqi's blog</title>
+  <title>Start | moqi's blog</title>
   
 
 
@@ -212,16 +212,6 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -298,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://moqimoqidea.github.io/2018/06/03/Linux-Check-Log-Commands/">
+    <link itemprop="mainEntityOfPage" href="http://moqimoqidea.github.io/2017/06/01/Start/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="moqi">
@@ -315,7 +305,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Linux 日志相关命令整理</h2>
+          <h2 class="post-title" itemprop="name headline">Start</h2>
         
 
         <div class="post-meta">
@@ -327,8 +317,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T22:34:05+08:00">
-                2018-06-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-01T22:02:59+08:00">
+                2017-06-01
               </time>
             
 
@@ -338,28 +328,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tech/" itemprop="url" rel="index">
-                    <span itemprop="name">tech</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -368,9 +336,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/06/03/Linux-Check-Log-Commands/#comments" itemprop="discussionUrl">
+                <a href="/2017/06/01/Start/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/03/Linux-Check-Log-Commands/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/06/01/Start/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -392,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  706
+                  127
                 </span>
               
 
@@ -408,7 +376,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -429,73 +397,15 @@
       
 
       
-        <p>本文主要介绍开发中一些日志的常用操作。</p>
+        <p>本文简要讨论了博客起源。</p>
 <a id="more"></a> 
-<h2 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h2><p>n  是显示行号；相当于 nl 命令；例子如下：</p>
 <ul>
-<li>tail -100f test.log      实时监控 100 行日志</li>
-<li>tail  -n  10  test.log   查询日志尾部最后 10 行的日志;</li>
-<li>tail -n +10 test.log    查询 10 行之后的所有日志;</li>
+<li>博客搭建于 20180701，儿童节做出的决定。</li>
+<li>目前定位于分享技术和个人思考，狭义来讲技术在最近一段时间是开发工具 IntelliJ IDEA 的一些最佳实践，个人思考在最近一段时间是关于一些书的读后感。</li>
+<li>目前对 Github + Hexo + NexT 刚开始熟悉，有建议欢迎联系邮箱。</li>
+<li>Ernest Hemingway once wrote:”The world is a fine place，and worth fighting for.”I agree with the second part.</li>
 </ul>
-<h2 id="head"><a href="#head" class="headerlink" title="head"></a>head</h2><p>跟 tail 是相反的，tail 是看后多少行日志；例子如下：</p>
-<ul>
-<li>head -n 10  test.log   查询日志文件中的头 10 行日志;</li>
-<li>head -n -10  test.log   查询日志文件除了最后 10 行的其他所有日志;</li>
-</ul>
-<h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h2><p>tac 是倒序查看，是 cat 单词反写；例子如下：</p>
-<ul>
-<li>cat -n test.log |grep “debug”   查询关键字的日志</li>
-</ul>
-<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>进入编辑查找：vi(vim) </p>
-<ul>
-<li>进入vim编辑模式：<ul>
-<li>vim  filename</li>
-<li>vim +n filename  进入特定行号日志</li>
-</ul>
-</li>
-<li>输入命令“set nu” 显示行号</li>
-<li>输入“/关键字”,按enter键查找</li>
-<li>查找下一个，按“n”即可</li>
-<li>退出：按ESC键后，接着再输入:号时，vi会在屏幕的最下方等待我们输入命令<ul>
-<li>wq! 保存退出；</li>
-<li>q! 不保存退出；</li>
-</ul>
-</li>
-<li>切换方向</li>
-<li>/关键字  　　注：正向查找，按n键把光标移动到下一个符合条件的地方</li>
-<li>?关键字  　　注：反向查找，按shift+n 键，把光标移动到下一个符合条件的</li>
-</ul>
-<h2 id="搜索关键字附近的日志"><a href="#搜索关键字附近的日志" class="headerlink" title="搜索关键字附近的日志"></a><strong>搜索关键字附近的日志</strong></h2><ul>
-<li>最常用的：cat -n filename |grep “关键字”</li>
-<li>其他情况：<ul>
-<li>cat filename | grep -C 5 ‘关键字’ 　　(显示日志里匹配字串那行以及前后5行)</li>
-<li>cat filename | grep -B 5 ‘关键字’ 　　(显示匹配字串及前5行)</li>
-<li>cat filename | grep -A 5 ‘关键字’ 　　(显示匹配字串及后5行)</li>
-</ul>
-</li>
-</ul>
-<h2 id="按行号查看-过滤出关键字附近的日志"><a href="#按行号查看-过滤出关键字附近的日志" class="headerlink" title="按行号查看 - 过滤出关键字附近的日志"></a>按行号查看 - 过滤出关键字附近的日志</h2><ol>
-<li>cat -n test.log |grep “debug”  得到关键日志的行号</li>
-<li>cat -n test.log |tail -n +92|head -n 20  选择关键字所在的中间一行. 然后查看这个关键字后 20 行的日志:<ul>
-<li>tail -n +92 表示查询第 92 行之后的日志</li>
-<li>head -n 20 则表示在前面的查询结果里再查后 20 条记录</li>
-</ul>
-</li>
-</ol>
-<h2 id="根据日期查询日志"><a href="#根据日期查询日志" class="headerlink" title="根据日期查询日志"></a>根据日期查询日志</h2><p>sed -n ‘/2014-12-17 16:17:20/,/2014-12-17 16:17:36/p’  test.log</p>
-<ul>
-<li>特别说明:上面的两个日期必须是日志中打印出来的日志，否则无效；</li>
-<li>先 grep ‘2014-12-17 16:17:20’ test.log 来确定日志中是否有该 时间点</li>
-</ul>
-<h2 id="日志内容特别多，打印在屏幕上不方便查看"><a href="#日志内容特别多，打印在屏幕上不方便查看" class="headerlink" title="日志内容特别多，打印在屏幕上不方便查看"></a>日志内容特别多，打印在屏幕上不方便查看</h2><ul>
-<li>使用 more 和 less 命令，如： cat -n test.log |grep “debug” |more     这样就分页打印了,通过点击空格键翻页</li>
-<li>使用 &gt;xxx.txt 将其保存到文件中，到时可以拉下这个文件分析，如：cat -n test.log |grep “debug”  &gt; debug.txt</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote class="blockquote-center"><a href="https://blog.csdn.net/yangkai_hudong/article/details/47783487" target="_blank" rel="noopener">https://blog.csdn.net/yangkai_hudong/article/details/47783487</a></blockquote> 
 
-<blockquote class="blockquote-center"><a href="https://www.cnblogs.com/hunt/p/7064886.html" target="_blank" rel="noopener">https://www.cnblogs.com/hunt/p/7064886.html</a></blockquote> 
-
-<blockquote class="blockquote-center"><a href="https://blog.csdn.net/dingnning/article/details/7189862" target="_blank" rel="noopener">https://blog.csdn.net/dingnning/article/details/7189862</a></blockquote> 
       
     </div>
     
@@ -541,7 +451,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tech/" rel="tag"># tech</a>
+            <a href="/tags/default/" rel="tag"># default</a>
           
         </div>
       
@@ -554,18 +464,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/01/Start/" rel="next" title="Start">
-                <i class="fa fa-chevron-left"></i> Start
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/04/Image-Test/" rel="prev" title="Github 图床是否可用测试">
-                Github 图床是否可用测试 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/03/Linux-Check-Log-Commands/" rel="prev" title="Linux 日志相关命令整理">
+                Linux 日志相关命令整理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -628,17 +534,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -657,21 +554,12 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
             
 
             
@@ -679,7 +567,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -712,22 +600,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tail"><span class="nav-number">1.</span> <span class="nav-text">tail</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#head"><span class="nav-number">2.</span> <span class="nav-text">head</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat"><span class="nav-number">3.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vim"><span class="nav-number">4.</span> <span class="nav-text">vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索关键字附近的日志"><span class="nav-number">5.</span> <span class="nav-text">搜索关键字附近的日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按行号查看-过滤出关键字附近的日志"><span class="nav-number">6.</span> <span class="nav-text">按行号查看 - 过滤出关键字附近的日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据日期查询日志"><span class="nav-number">7.</span> <span class="nav-text">根据日期查询日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志内容特别多，打印在屏幕上不方便查看"><span class="nav-number">8.</span> <span class="nav-text">日志内容特别多，打印在屏幕上不方便查看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -895,9 +767,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://moqimoqidea.github.io/2018/06/03/Linux-Check-Log-Commands/';
-          this.page.identifier = '2018/06/03/Linux-Check-Log-Commands/';
-          this.page.title = 'Linux 日志相关命令整理';
+          this.page.url = 'http://moqimoqidea.github.io/2017/06/01/Start/';
+          this.page.identifier = '2017/06/01/Start/';
+          this.page.title = 'Start';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://moqimoqidea.disqus.com/embed.js';
