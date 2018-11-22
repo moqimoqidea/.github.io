@@ -96,7 +96,17 @@
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/card-table-structure.png?raw=true">
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Difference-between-the-Serial-GC-and-Parallel-GC.png?raw=true">
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Serial-GC-and-CMS-GC.png?raw=true">
-<meta property="og:updated_time" content="2018-11-21T15:26:10.837Z">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/G1-GC.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/how-young-gc-works-in-g1-1.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/how-young-gc-works-in-g1-2.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/how-young-gc-works-in-g1-3.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Initial-Marking-Phase.PNG?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Concurrent-Marking-Phase.PNG?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Remark-Phase.PNG?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Copying:Cleanup-Phase.PNG?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/After-Copying:Cleanup-Phase.PNG?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Metaspace-And-PermGen.png?raw=true">
+<meta property="og:updated_time" content="2018-11-22T06:55:25.095Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM GC 发展历程">
 <meta name="twitter:description" content="本文主要介绍 JVM GC 的发展。">
@@ -368,7 +378,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,475
+                  2,698
                 </span>
               
 
@@ -384,7 +394,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  10
                 </span>
               
             </div>
@@ -422,16 +432,12 @@
 </ul>
 <p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Hotspot-Heap-Structure.PNG?raw=true" alt="Hotspot-Heap-Structure"></p>
 <ul>
-<li>因此，JVM GC 分代治理的核心基础是以下两个：<ul>
-<li>大多数对象都会在年轻代死亡。</li>
-<li>年老代引用年轻代的对象只占很小的一部分。</li>
-</ul>
-</li>
-<li>根据代际假设构建的堆内存首先避免了全盘扫描，这个时期的 JVM GC 发展为如上图所示结构，分为年轻代，年老代，永生代。年轻代分为 eden 区与两个 survivor 区，s0 和 s1 实现是最初的 From - To 架构，在这里我们假设 s0 为 From 区，s1 为 To 区。创建的对象首先进入 eden 区，如果发生年轻代垃圾回收，eden 区中大部分对象被回收，小部分对象拷贝到 To 区，From 也拷贝到 To 区；如果在 eden 中的对象太大不能拷贝到 To 区，则会被直接移动到年老代。每次年轻代的垃圾回收 From 和 To 会交换，每交换一次区内的对象年龄会加一，当年龄到达一定值（比如15）（注：这一块在后面的 GC 实现了动态调整）的时候，这些大龄的对象也被移动到了年老代。</li>
+<li>因此，JVM GC 分代治理的核心基础是以下两个：（1）大多数对象都会在年轻代死亡。（2）年老代引用年轻代的对象只占很小的一部分。分代治理会发生不同区域的 GC。在年轻代发生的 GC 称为 “minor GC”，在年老代出现的 GC 称为 “major GC” 或者 “full GC”。</li>
+<li>根据代际假设构建的堆内存首先避免了全盘扫描，这个时期的 JVM GC 发展为如上图所示结构，分为年轻代，年老代，永生代。年轻代分为 eden 区与两个 survivor 区，s0 和 s1 实现是最初的 From - To 架构，在这里我们假设 s0 为 From 区，s1 为 To 区。创建的对象首先进入 eden 区，如果发生 minor GC，eden 区中大部分对象被回收，小部分对象拷贝到 To 区，From 也拷贝到 To 区；如果在 eden 中的对象太大不能拷贝到 To 区，则会被直接移动到年老代。每次 minor GC 时 From 和 To 会交换，每交换一次区内的对象年龄会加一，当年龄到达一定值（比如15）（注：这一块在后面的 GC 实现了动态调整）的时候，这些大龄的对象也被移动到了年老代。</li>
 </ul>
 <p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/young-to-old-generation.png?raw=true" alt="yount-to-old-generation"></p>
 <ul>
-<li>但是这里会发生一个问题：<strong>如果年老代的对象需要引用年轻代的对象怎么办？</strong>为了处理这些情况，年老代中有一种称为“ 卡表 ”的东西，它是一个 512 字节的块。每当年老代中的对象引用年轻代中的对象时，它就会记录在此表中。当为年轻代执行 GC 时，仅搜索该卡表以确定它是否是年轻代 GC 需要回收的对象，而不是检查旧代中的所有对象的引用。</li>
+<li>但是这里会发生一个问题：<strong>如果年老代的对象需要引用年轻代的对象怎么办？</strong>为了处理这些情况，年老代中有一种称为”CardTable” (卡表) 的东西，它是一个 512 字节的块。每当年老代中的对象引用年轻代中的对象时，它就会记录在此表中。当发生 minor GC 时，仅搜索该卡表以确定它是否是年轻代 GC 需要回收的对象，而不是检查旧代中的所有对象的引用。</li>
 </ul>
 <p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/card-table-structure.png?raw=true" alt="card-table-structure"></p>
 <ul>
@@ -452,7 +458,60 @@
 <h2 id="Parallel-Old-GC"><a href="#Parallel-Old-GC" class="headerlink" title="Parallel Old GC"></a>Parallel Old GC</h2><p>  (-XX:+UseParallelOldGC)，并行旧 GC，自 JDK 5 更新以来开始支持，与并行 GC 相比，唯一的区别是老年代的 GC 算法。它经历了三个步骤：mark – summary – compaction（标记 - 摘要 - 压缩）。”摘要“步骤经历了一些更复杂的步骤。</p>
 <h2 id="CMS-GC"><a href="#CMS-GC" class="headerlink" title="CMS GC"></a>CMS GC</h2><p>  （-XX：+ UseConcMarkSweepGC），从下图中可以看出，CMS GC 相对于前三个复杂得多。第一步 “Initial Mark” (初始标记) 很简单，搜索最接近类加载器的对象中的幸存对象，因此暂停时间很短。在 “Concurrent Mark” (并发标记) 步骤中，跟踪并检查刚刚确认的幸存对象引用的对象。这一步的不同之处在于它在同时处理其他线程的同时继续进行。在 “Remark” (再次标记) 步骤中，将检查在并发标记步骤中新增加或停止引用的对象。最后，在 “Concurrent Sweep” (并发扫描) 步骤中进行垃圾回收，垃圾回收和其他线程同步进行。由于 CMS GC 独特的运行方式，因此 GC 的暂停时间非常短。CMS GC 也称为低延迟 GC。<strong>在应用程序的响应时间至关重要时使用。</strong>这种 GC 的主要缺点如下：（1）它比其他 GC 类型使用更多的内存和 CPU。（2）默认情况下不提供压缩步骤。因而如果由于许多内存碎片而需要执行压缩任务，那么 GC 需要的静止时间可能会比其他任何 GC 方式都要长。所以，如果在使用 CMS GC 的时候要尤其注意压缩任务执行的频率和持续时间。</p>
 <p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Serial-GC-and-CMS-GC.png?raw=true" alt="Serial-GC-and-CMS-GC"></p>
-<h2 id="G1-GC"><a href="#G1-GC" class="headerlink" title="G1 GC"></a>G1 GC</h2><p>  待补充！</p>
+<h1 id="G1-GC"><a href="#G1-GC" class="headerlink" title="G1 GC"></a>G1 GC</h1><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/G1-GC.png?raw=true" alt="G1-GC"></p>
+<ul>
+<li>G1 是 Garbage First 的缩写，最开始的 G1 完全抛弃分代收集的思想，开始于 JDK 1.7 Update 4，可以视为上图中所有的 “E”, “O”, “S” 标志消失，只分成不同的 Region (块)。实际上现在的 G1 GC 也有了分代的逻辑。G1 的实现一直以来都在不断的变化之中。</li>
+<li>由前文所知每种 GC 都有出现的历史背景，比如串行 GC 是在内存和 CPU 比较小的情况下出现的；并行 GC 是在吞吐量出现巨大需求的时候出现的；而 CMS GC 则是对低延迟有了更高的需求，尽量拖延 full GC 出现的时间。那么，出现 G1这种形式的垃圾收集器的原因是什么？在 JVM GC 不断发展的过程中，已经出现了自适应的堆，也就是不需要手动调节年轻代与年老代的比例，以及年轻代对象进入年老代的年龄。这些自适应堆对更灵活的堆块产生了强烈的需求：如果将堆空间划分为很多个 Region，G1 可以将某一块指定为各种不同的代（可以是年老代，Eden 或者 Survivor 区），而且各个块在空间上不需要连续的在一起，有一个 List 将它们组织在一起，这样 G1 就很容易调整各个代之间的比例。</li>
+</ul>
+<h2 id="G1-GC-年轻代的回收"><a href="#G1-GC-年轻代的回收" class="headerlink" title="G1 GC 年轻代的回收"></a>G1 GC 年轻代的回收</h2><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/how-young-gc-works-in-g1-1.png?raw=true" alt="how-young-gc-works-in-g1-1"><br><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/how-young-gc-works-in-g1-2.png?raw=true" alt="how-young-gc-works-in-g1-2"><br><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/how-young-gc-works-in-g1-3.png?raw=true" alt="how-young-gc-works-in-g1-3"></p>
+<ol>
+<li>当 JVM 启动时基于启动参数，JVM 要求操作系统分配一个大的连续内存块来托管 JVM 的堆，被划分为 2048 个 Region (块)。</li>
+<li>年轻代的块发生 “minor GC”，将活着的对象拷贝到 survivor 块（依然是 From - To 算法）。如果对象过大或者对象的年龄足够，会拷贝到年老代。</li>
+<li>结果：图三有新增的 “Recently Copied” 两块。</li>
+</ol>
+<p>为什么 G1 被称为 G1？</p>
+<ul>
+<li><p>G1 会在内部维护一个优先列表，通过一个合理的模型，计算出每个 Region 的收集成本和收益期望并量化，这样每次进行 GC 时，G1 总是会选择最适合的 Region（通常垃圾比较多）进行回收，使 GC 时间满足设置的条件。</p>
+</li>
+<li><p>G1通过引入 Remembered Set 来避免全堆扫描（前面所说的 CardTable 是其的一种实现）。Remembered Set 用于跟踪对象引用。G1 中每个 Region 都有对应的 Remembered Set 。当 JVM 发现内部的一个引用关系需要更新（对 Reference 类型进行写操作），则立即产生一个 Write Barrier 中断这个写操作，并检查Reference 引用的对象是否处于不同的 Region 之间（用分代的思想，就是新生代和老年代之间的引用）。如果是，则通过 CardTable 通知 G1，G1 根据 CardTable 把相关引用信息记录到被引用对象所属的 Region 的Remembered Set 中，并将 Remembered Set 加入 GC Root 。这样，在 G1 进行根节点枚举时就可以扫描到该对象而不会出现遗漏。</p>
+</li>
+<li><p>通俗解释第二条：如果一个 Region 的 Reference 越少，JVM 倾向于认为这块 Region 里面活着的对象越少，这个 Region 块是可回收的垃圾块的百分比就越大，这样回收这个 Region 的收益就越大。所以称这种算法为 Garbage First.</p>
+</li>
+</ul>
+<h2 id="G1-GC-年老代的回收"><a href="#G1-GC-年老代的回收" class="headerlink" title="G1 GC 年老代的回收"></a>G1 GC 年老代的回收</h2><ol>
+<li>初始标记阶段：初始标记的活着的对象在年轻代的垃圾收集上。在日志中，被标记为 GC pause (young) (inital-mark).</li>
+</ol>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Initial-Marking-Phase.PNG?raw=true" alt="Initial-Marking-Phase"></p>
+<ol start="2">
+<li>并行标记阶段，如果找到空区域（由”X”表示），则在 Remark 阶段立即将它们移除。此外，计算确定活跃度的信息。</li>
+</ol>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Concurrent-Marking-Phase.PNG?raw=true" alt="Concurrent-Marking-Phase"></p>
+<ol start="3">
+<li>Remark 阶段，空区域被移除并回收，现在计算所有区域的区域活跃度。</li>
+</ol>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Remark-Phase.PNG?raw=true" alt="Remark-Phase"></p>
+<ol start="4">
+<li>复制清理阶段，G1 选择具有最低”活跃度“的区域（比如引用其他 Region 最少的区域），那些可以最快收集的区域。这些区域与年轻代 GC 同时收集。这在日志中表示为 [GC pause (mixed)]。G1 实际上将 Stop-The-World 的操作放在一个时间区间，这样对应用性能和稳定性较好。</li>
+</ol>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Copying:Cleanup-Phase.PNG?raw=true" alt="Copying:Cleanup-Phase"></p>
+<ol start="5">
+<li>复制清理阶段后，选择的区域已经被收集并压缩成图中所示的深蓝色区域和深绿色区域。</li>
+</ol>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/After-Copying:Cleanup-Phase.PNG?raw=true" alt="After-Copying:Cleanup-Phase"></p>
+<h2 id="JDK-8-中-JVM-的调整"><a href="#JDK-8-中-JVM-的调整" class="headerlink" title="JDK 8 中 JVM 的调整"></a>JDK 8 中 JVM 的调整</h2><p>JDK 8 的 JVM 去掉了永生代(PermGen)，用 Metaspace 来代替。Metaspace 使用系统的内存。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/JVM-GC-Development-Path/Metaspace-And-PermGen.png?raw=true" alt="Metaspace-And-PermGen"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote class="blockquote-center"><a href="https://www.cubrid.org/blog/understanding-java-garbage-collection" target="_blank" rel="noopener">https://www.cubrid.org/blog/understanding-java-garbage-collection</a></blockquote> 
+
+<blockquote class="blockquote-center"><a href="https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html" target="_blank" rel="noopener">https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html</a></blockquote> 
+
+<blockquote class="blockquote-center"><a href="https://blog.idrsolutions.com/2017/05/g1gc-java-9-garbage-collector-explained-5-minutes/" target="_blank" rel="noopener">https://blog.idrsolutions.com/2017/05/g1gc-java-9-garbage-collector-explained-5-minutes/</a></blockquote> 
+
+<blockquote class="blockquote-center"><a href="https://www.sczyh30.com/posts/Java/jvm-gc-hotspot-implements/" target="_blank" rel="noopener">https://www.sczyh30.com/posts/Java/jvm-gc-hotspot-implements/</a></blockquote>
+
+<blockquote class="blockquote-center"><a href="https://software.intel.com/en-us/blogs/2014/06/18/part-1-tuning-java-garbage-collection-for-hbase" target="_blank" rel="noopener">https://software.intel.com/en-us/blogs/2014/06/18/part-1-tuning-java-garbage-collection-for-hbase</a></blockquote>
+
+<blockquote class="blockquote-center"><a href="https://blog.csdn.net/elinespace/article/details/78852469" target="_blank" rel="noopener">https://blog.csdn.net/elinespace/article/details/78852469</a></blockquote>
+
 
       
     </div>
@@ -667,7 +726,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#较早的-From-To-阶段"><span class="nav-number">1.</span> <span class="nav-text">较早的 From - To 阶段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回收分代的思想"><span class="nav-number">2.</span> <span class="nav-text">回收分代的思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial-GC"><span class="nav-number">2.1.</span> <span class="nav-text">Serial GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-GC"><span class="nav-number">2.2.</span> <span class="nav-text">Parallel GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-Old-GC"><span class="nav-number">2.3.</span> <span class="nav-text">Parallel Old GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMS-GC"><span class="nav-number">2.4.</span> <span class="nav-text">CMS GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1-GC"><span class="nav-number">2.5.</span> <span class="nav-text">G1 GC</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#较早的-From-To-阶段"><span class="nav-number">1.</span> <span class="nav-text">较早的 From - To 阶段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回收分代的思想"><span class="nav-number">2.</span> <span class="nav-text">回收分代的思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Serial-GC"><span class="nav-number">2.1.</span> <span class="nav-text">Serial GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-GC"><span class="nav-number">2.2.</span> <span class="nav-text">Parallel GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parallel-Old-GC"><span class="nav-number">2.3.</span> <span class="nav-text">Parallel Old GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CMS-GC"><span class="nav-number">2.4.</span> <span class="nav-text">CMS GC</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G1-GC"><span class="nav-number">3.</span> <span class="nav-text">G1 GC</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#G1-GC-年轻代的回收"><span class="nav-number">3.1.</span> <span class="nav-text">G1 GC 年轻代的回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1-GC-年老代的回收"><span class="nav-number">3.2.</span> <span class="nav-text">G1 GC 年老代的回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK-8-中-JVM-的调整"><span class="nav-number">3.3.</span> <span class="nav-text">JDK 8 中 JVM 的调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -701,7 +760,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.8k</span>
+    <span title="Site words total count">4.0k</span>
   
 </div>
 
