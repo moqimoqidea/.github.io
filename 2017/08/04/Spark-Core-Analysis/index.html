@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="IDEA," />
+  <meta name="keywords" content="Spark," />
 
 
 
@@ -83,26 +83,30 @@
 
 
 
-<meta name="description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图体积较大，请耐心等待。 觉得图比较小的单击查看大图。">
-<meta name="keywords" content="IDEA">
+<meta name="description" content="本文主要解析部分 Spark Core 的技术点。">
+<meta name="keywords" content="Spark">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDEA - Debugger 经验总结">
-<meta property="og:url" content="http://moqimoqidea.github.io/2017/06/02/IDEA-Debugger/index.html">
+<meta property="og:title" content="Spark Core 应用解析">
+<meta property="og:url" content="http://moqimoqidea.github.io/2017/08/04/Spark-Core-Analysis/index.html">
 <meta property="og:site_name" content="moqi&#39;s blog">
-<meta property="og:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图体积较大，请耐心等待。 觉得图比较小的单击查看大图。">
+<meta property="og:description" content="本文主要解析部分 Spark Core 的技术点。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analyze_Stacktrace.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/drop_frame.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/force_return.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/throw_expection.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/reload_change_class.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/stream_trace.gif">
-<meta property="og:updated_time" content="2018-11-22T06:54:24.902Z">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/01-Iteration-In-MapReduce.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/02-Iteration-In-Spark.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/03-RDD-Attributes.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/04-Native-Data-Space-And-Spark-RDD.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/05-RDD-Partition.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/06-RDD-Read-Only.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/07-Variety-Of-Operators.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/08-Transformation-Operations-And-Actions-Operations.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/09-Dependencies-Between-RDD.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/10-DAG.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/11-RDD-Cache.png?raw=true">
+<meta property="og:updated_time" content="2018-11-23T06:59:01.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IDEA - Debugger 经验总结">
-<meta name="twitter:description" content="本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图体积较大，请耐心等待。 觉得图比较小的单击查看大图。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png">
+<meta name="twitter:title" content="Spark Core 应用解析">
+<meta name="twitter:description" content="本文主要解析部分 Spark Core 的技术点。">
+<meta name="twitter:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/01-Iteration-In-MapReduce.png?raw=true">
 
 
 
@@ -132,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://moqimoqidea.github.io/2017/06/02/IDEA-Debugger/"/>
+  <link rel="canonical" href="http://moqimoqidea.github.io/2017/08/04/Spark-Core-Analysis/"/>
 
 
 
 
 
-  <title>IDEA - Debugger 经验总结 | moqi's blog</title>
+  <title>Spark Core 应用解析 | moqi's blog</title>
   
 
 
@@ -298,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://moqimoqidea.github.io/2017/06/02/IDEA-Debugger/">
+    <link itemprop="mainEntityOfPage" href="http://moqimoqidea.github.io/2017/08/04/Spark-Core-Analysis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="moqi">
@@ -315,7 +319,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">IDEA - Debugger 经验总结</h2>
+          <h2 class="post-title" itemprop="name headline">Spark Core 应用解析</h2>
         
 
         <div class="post-meta">
@@ -327,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-02T14:38:42+08:00">
-                2017-06-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-04T13:29:46+08:00">
+                2017-08-04
               </time>
             
 
@@ -346,9 +350,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/02/IDEA-Debugger/#comments" itemprop="discussionUrl">
+                <a href="/2017/08/04/Spark-Core-Analysis/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/02/IDEA-Debugger/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/08/04/Spark-Core-Analysis/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -370,7 +374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  453
+                  3,044
                 </span>
               
 
@@ -386,7 +390,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  11
                 </span>
               
             </div>
@@ -407,29 +411,56 @@
       
 
       
-        <p>本文主要介绍 IDEA - Debugger 的一些操作。每个都有场景和操作说明，动态 Gif 图体积较大，请耐心等待。</p>
-<p><strong>觉得图比较小的单击查看大图。</strong></p>
+        <p>本文主要解析部分 Spark Core 的技术点。</p>
 <a id="more"></a> 
-<h2 id="分析外部堆栈跟踪"><a href="#分析外部堆栈跟踪" class="headerlink" title="分析外部堆栈跟踪"></a>分析外部堆栈跟踪</h2><p>把报错信息复制到 Analyze -&gt; Analyze Stacktrace，快速进入程序块。开发中经常可以看到生产环境有错误日志，依照此方法快速将日志导入项目，定位问题。</p>
-<p>场景：</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analysis_Static_Stacktrace.png" alt="scene01"></p>
-<p>操作：</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/Analyze_Stacktrace.gif" alt="operate01"></p>
-<h2 id="返回到前一个堆栈帧"><a href="#返回到前一个堆栈帧" class="headerlink" title="返回到前一个堆栈帧"></a>返回到前一个堆栈帧</h2><p>IDEA 可在程序的执行流程中回退到先前的堆栈帧。要求不是最上面入口方法，选择 Drop Frame 后，等于未进入调用的方法。请注意：已经对全局状态进行的更改不会被恢复，只有本地变量会被重置。</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/drop_frame.gif" alt="drop_frame"></p>
-<h2 id="强制从当前方法返回"><a href="#强制从当前方法返回" class="headerlink" title="强制从当前方法返回"></a>强制从当前方法返回</h2><p>在当前堆栈帧中右键单击选择 Force Return 然后根据需要的返回类型输入即可。</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/force_return.gif" alt="force_return"></p>
-<h2 id="抛出一个异常"><a href="#抛出一个异常" class="headerlink" title="抛出一个异常"></a>抛出一个异常</h2><p>在当前堆栈帧中右键单击选择 Throw Exception 然后手动输入异常即可，比如 new NullPointerException();</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/throw_expection.gif" alt="throw_exception"></p>
-<h2 id="重新加载修改的类"><a href="#重新加载修改的类" class="headerlink" title="重新加载修改的类"></a>重新加载修改的类</h2><p>一般而言应用于在 Debugger 时发现未调用的方法有需要改动的地方，这时候修改未调用的方法，然后选择 Run -&gt; Reload Changed Classes, 快捷键 Alt + U, 然后 A. 这时候 Debugger 继续进行调用，则执行的调用方法逻辑为重新编译之后。底层逻辑是用到 JVM 的 hotSwap.</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/reload_change_class.gif" alt="reload_change_class"></p>
-<h2 id="分析-Java-Stream-操作"><a href="#分析-Java-Stream-操作" class="headerlink" title="分析 Java Stream 操作"></a>分析 Java Stream 操作</h2><p>IDEA Debugger 时可以可视化 Java Stream 进行的操作和对值数据的影响，需要断点停留在 Stream 上点击 Trace Current Stream Chain 按钮。</p>
-<p><img src="https://raw.githubusercontent.com/onefansofworld/hexo_images/master/201806/stream_trace.gif" alt="stream_trace"></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote class="blockquote-center"><a href="https://www.jetbrains.com/help/idea/analyzing-external-stacktraces.html" target="_blank" rel="noopener">https://www.jetbrains.com/help/idea/analyzing-external-stacktraces.html</a></blockquote> 
-
-<blockquote class="blockquote-center"><a href="https://www.jetbrains.com/help/idea/altering-the-program-s-execution-flow.html" target="_blank" rel="noopener">https://www.jetbrains.com/help/idea/altering-the-program-s-execution-flow.html</a></blockquote> 
-
-<blockquote class="blockquote-center"><a href="https://www.jetbrains.com/help/idea/analyze-java-stream-operations.html" target="_blank" rel="noopener">https://www.jetbrains.com/help/idea/analyze-java-stream-operations.html</a></blockquote> 
+<h1 id="RDD-概念"><a href="#RDD-概念" class="headerlink" title="RDD 概念"></a>RDD 概念</h1><h2 id="RDD-为什么会产生"><a href="#RDD-为什么会产生" class="headerlink" title="RDD 为什么会产生"></a>RDD 为什么会产生</h2><p>RDD是Spark的基石，是实现Spark数据处理的核心抽象。那么RDD为什么会产生呢？</p>
+<p>Hadoop的MapReduce是一种基于数据集的工作模式，面向数据，这种工作模式一般是从存储上加载数据集，然后操作数据集，最后写入物理存储设备。数据更多面临的是一次性处理。</p>
+<p>MR的这种方式对数据领域两种常见的操作不是很高效。第一种是迭代式的算法。比如机器学习中ALS、凸优化梯度下降等。这些都需要基于数据集或者数据集的衍生数据反复查询反复操作。MR这种模式不太合适，即使多MR串行处理，性能和时间也是一个问题。数据的共享依赖于磁盘。另外一种是交互式数据挖掘，MR显然不擅长。</p>
+<p>MR中的迭代：</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/01-Iteration-In-MapReduce.png?raw=true" alt="01-Iteration-In-MapReduce"></p>
+<p>Spark中的迭代：</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/02-Iteration-In-Spark.png?raw=true" alt="02-Iteration-In-Spark"></p>
+<p>我们需要一个效率非常快，且能够支持迭代计算和有效数据共享的模型，Spark应运而生。RDD是基于工作集的工作模式，更多的是面向工作流。</p>
+<p>但是无论是MR还是RDD都应该具有类似位置感知、容错和负载均衡等特性。</p>
+<h2 id="RDD-概述"><a href="#RDD-概述" class="headerlink" title="RDD 概述"></a>RDD 概述</h2><h3 id="什么是-RDD"><a href="#什么是-RDD" class="headerlink" title="什么是 RDD"></a>什么是 RDD</h3><p>RDD（Resilient Distributed Dataset）叫做分布式数据集，是Spark中最基本的数据抽象，它代表一个不可变、可分区、里面的元素可并行计算的集合。在 Spark 中，对数据的所有操作不外乎创建 RDD、转化已有RDD 以及调用 RDD 操作进行求值。每个 RDD 都被分为多个分区，这些分区运行在集群中的不同节点上。RDD 可以包含 Python、Java、Scala 中任意类型的对象， 甚至可以包含用户自定义的对象。RDD具有数据流模型的特点：自动容错、位置感知性调度和可伸缩性。RDD允许用户在执行多个查询时显式地将工作集缓存在内存中，后续的查询能够重用工作集，这极大地提升了查询速度。<br>RDD支持两种操作:转化操作和行动操作。RDD 的转化操作是返回一个新的 RDD的操作，比如 map()和 filter()，而行动操作则是向驱动器程序返回结果或把结果写入外部系统的操作。比如 count() 和 first()。<br>Spark采用惰性计算模式，RDD只有第一次在一个行动操作中用到时，才会真正计算。Spark可以优化整个计算过程。默认情况下，Spark 的 RDD 会在你每次对它们进行行动操作时重新计算。如果想在多个行动操作中重用同一个 RDD，可以使用 RDD.persist() 让 Spark 把这个 RDD 缓存下来。</p>
+<h3 id="RDD-的属性"><a href="#RDD-的属性" class="headerlink" title="RDD 的属性"></a>RDD 的属性</h3><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/03-RDD-Attributes.png?raw=true" alt="03-RDD-Attributes"></p>
+<ol>
+<li>一组分片（Partition），即数据集的基本组成单位。对于RDD来说，每个分片都会被一个计算任务处理，并决定并行计算的粒度。用户可以在创建RDD时指定RDD的分片个数，如果没有指定，那么就会采用默认值。默认值就是程序所分配到的CPU Core的数目。</li>
+<li>一个计算每个分区的函数。Spark中RDD的计算是以分片为单位的，每个RDD都会实现compute函数以达到这个目的。compute函数会对迭代器进行复合，不需要保存每次计算的结果。</li>
+<li>RDD之间的依赖关系。RDD的每次转换都会生成一个新的RDD，所以RDD之间就会形成类似于流水线一样的前后依赖关系。在部分分区数据丢失时，Spark可以通过这个依赖关系重新计算丢失的分区数据，而不是对RDD的所有分区进行重新计算。</li>
+<li>一个Partitioner，即RDD的分片函数。当前Spark中实现了两种类型的分片函数，一个是基于哈希的HashPartitioner，另外一个是基于范围的RangePartitioner。只有对于于key-value的RDD，才会有Partitioner，非key-value的RDD的Parititioner的值是None。Partitioner函数不但决定了RDD本身的分片数量，也决定了parent RDD Shuffle输出时的分片数量。</li>
+<li>一个列表，存储存取每个Partition的优先位置（preferred location）。对于一个HDFS文件来说，这个列表保存的就是每个Partition所在的块的位置。按照“移动数据不如移动计算”的理念，Spark在进行任务调度的时候，会尽可能地将计算任务分配到其所要处理数据块的存储位置。</li>
+</ol>
+<p>RDD是一个应用层面的逻辑概念。一个RDD多个分片。RDD就是一个元数据记录集，记录了RDD内存所有的关系数据。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/04-Native-Data-Space-And-Spark-RDD.png?raw=true" alt="04-Native-Data-Space-And-Spark-RDD"></p>
+<h2 id="RDD-弹性"><a href="#RDD-弹性" class="headerlink" title="RDD 弹性"></a>RDD 弹性</h2><ol>
+<li>自动进行内存和磁盘数据存储的切换：Spark优先把数据放到内存中，如果内存放不下，就会放到磁盘里面，程序进行自动的存储切换</li>
+<li>基于血统的高效容错机制：在RDD进行转换和动作的时候，会形成RDD的Lineage依赖链，当某一个RDD失效的时候，可以通过重新计算上游的RDD来重新生成丢失的RDD数据。</li>
+<li>Task如果失败会自动进行特定次数的重试：RDD的计算任务如果运行失败，会自动进行任务的重新计算，默认次数是4次。</li>
+<li>Stage如果失败会自动进行特定次数的重试：如果Job的某个Stage阶段计算失败，框架也会自动进行任务的重新计算，默认次数也是4次。</li>
+<li>Checkpoint和Persist可主动或被动触发：RDD可以通过Persist持久化将RDD缓存到内存或者磁盘，当再次用到该RDD时直接读取就行。也可以将RDD进行检查点，检查点会将数据存储在HDFS中，该RDD的所有父RD都会被移除。</li>
+<li>数据调度弹性：Spark把这个JOB执行模型抽象为通用的有向无环图DAG，可以将多Stage的任务串联或并行执行，调度引擎自动处理Stage的失败以及Task的失败。</li>
+<li>数据分片的高度弹性：可以根据业务的特征，动态调整数据分片的个数，提升整体的应用执行效率。</li>
+</ol>
+<p>RDD全称叫做弹性分布式数据集(Resilient Distributed Datasets)一种分布式的内存抽象，表示一个只读的记录分区的集合，它只能通过其他RDD转换而创建，为此，RDD支持丰富的转换操作(如map, join, filter, groupBy等过这种转换操作，新的RDD则包含了如何从其他RDDs衍生所必需的信息，所以说RDDs之间是有依赖关系的。基于RDDs之间的依赖，RDDs会形成一个有向无环图DAG，G描述了整个流式计算的流程，实际执行的时候，RDD是通过血缘关系(Lineage)成的，即使出现数据分区丢失，也可以通过血缘关系重建分区，总结起来，基于RDD的流式计算任务可描述为：从稳定的物理存储(如分布式文件系统)中加载记录，记入由一组确定性操作构成的DAG，然后写回稳定存储。另外RDD还可以将数据集缓存到内存中，使得在多个操作之间可以重用数据集，基于这个特点可以很方便地构建应用(图计算、机器学习等)或者交互式数据分析应用。可以说Spark最初也就是实现RDD的一个分布式系统，后面通过不断发展壮大成为现在较为完善的大数据生态系单来讲，Spark-RDD的关系类似于Hadoop-MapReduce关系。</p>
+<h2 id="RDD-特点"><a href="#RDD-特点" class="headerlink" title="RDD 特点"></a>RDD 特点</h2><p>RDD表示只读的分区的数据集，对RDD进行改动，只能通过RDD的转换操作，由一个RDD得到一个新的RDD，新的RDD包含了从其他RDD衍生所必需的信息。RDDs之间存在依赖，RDD的执行是按照血缘关系延时计算的。如果血缘关系较长，可以通过持久化RDD来切断血缘关系。</p>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><p>RDD逻辑上是分区的，每个分区的数据是抽象存在的，计算的时候会通过一个compute函数得到每个分区的数据。如果RDD是通过已有的文件系统构建，则compute函数是读取指定文件系统中的数据，如果RDD是通过其他RDD转换而来，则compute函数是执行转换逻辑将其他RDD的数据进行转换。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/05-RDD-Partition.png?raw=true" alt="05-RDD-Partition"></p>
+<h3 id="只读"><a href="#只读" class="headerlink" title="只读"></a>只读</h3><p>如下图所示，RDD是只读的，要想改变RDD中的数据，只能在现有的RDD基础上创建新的RDD。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/06-RDD-Read-Only.png?raw=true" alt="06-RDD-Read-Only"></p>
+<p>由一个RDD转换到另一个RDD，可以通过丰富的操作算子实现，不再像MapReduce那样只能写map和reduce了，如下图所示。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/07-Variety-Of-Operators.png?raw=true" alt="07-Variety-Of-Operators"></p>
+<p>RDD的操作算子包括两类，一类叫做transformations，它是用来将RDD进行转化，构建RDD的血缘关系；另一类叫做actions，它是用来触发RDD的计算，得到RDD的相关计算结果或者将RDD保存的文件系统中。下图是RDD所支持的操作算子列表。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/08-Transformation-Operations-And-Actions-Operations.png?raw=true" alt="08-Transformation-Operations-And-Actions-Operations"></p>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><p>RDDs通过操作算子进行转换，转换得到的新RDD包含了从其他RDDs衍生所必需的信息，RDDs之间维护着这种血缘关系，也称之为依赖。如下图所示，依赖包括两种，一种是窄依赖，RDDs之间分区是一一对应的，另一种是宽依赖，下游RDD的每个分区与上游RDD(也称之为父RDD)的每个分区都有关，是多对多的关系。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/09-Dependencies-Between-RDD.png?raw=true" alt="09-Dependencies-Between-RDD"></p>
+<p>通过RDDs之间的这种依赖关系，一个任务流可以描述为DAG(有向无环图)，如下图所示，在实际执行过程中宽依赖对应于Shuffle(图中的reduceByKey和join)，窄依赖中的所有转换操作可以通过类似于管道的方式一气呵成执行(图中map和union可以一起执行)。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/10-DAG.png?raw=true" alt="10-DAG"></p>
+<h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>如果在应用程序中多次使用同一个RDD，可以将该RDD缓存起来，该RDD只有在第一次计算的时候会根据血缘关系得到分区的数据，在后续其他地方用到该RDD的时候，会直接从缓存处取而不用再根据血缘关系计算，这样就加速后期的重用。如下图所示，RDD-1经过一系列的转换后得到RDD-n并保存到hdfs，RDD-1在这一过程中会有个中间结果，如果将其缓存到内存，那么在随后的RDD-1转换到RDD-m这一过程中，就不会计算其之前的RDD-0了。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Core/11-RDD-Cache.png?raw=true" alt="11-RDD-Cache"></p>
+<h3 id="CheckPoint"><a href="#CheckPoint" class="headerlink" title="CheckPoint"></a>CheckPoint</h3><p>虽然RDD的血缘关系天然地可以实现容错，当RDD的某个分区数据失败或丢失，可以通过血缘关系重建。但是对于长时间迭代型应用来说，随着迭代的进行，RDDs之间的血缘关系会越来越长，一旦在后续迭代过程中出错，则需要通过非常长的血缘关系去重建，势必影响性能。为此，RDD支持checkpoint将数据保存到持久化的存储中，这样就可以切断之前的血缘关系，因为checkpoint后的RDD不需要知道它的父RDDs了，它可以从checkpoint处拿到数据。</p>
+<p>给定一个RDD我们至少可以知道如下几点信息：1、分区数以及分区方式；2、由父RDDs衍生而来的相关依赖信息；3、计算每个分区的数据，计算步骤为：1）如果被缓存，则从缓存中取的分区的数据；2）如果被checkpoint，则从checkpoint处恢复数据；3）根据血缘关系计算分区的数据。</p>
+<h1 id="RDD-编程"><a href="#RDD-编程" class="headerlink" title="RDD 编程"></a>RDD 编程</h1><h2 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h2>
       
     </div>
     
@@ -475,7 +506,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/IDEA/" rel="tag"># IDEA</a>
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
           
         </div>
       
@@ -488,8 +519,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/01/Start/" rel="next" title="Start">
-                <i class="fa fa-chevron-left"></i> Start
+              <a href="/2017/06/16/JVM-GC-Development-Path/" rel="next" title="JVM GC 发展历程">
+                <i class="fa fa-chevron-left"></i> JVM GC 发展历程
               </a>
             
           </div>
@@ -497,10 +528,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/03/Linux-Check-Log-Commands/" rel="prev" title="Linux 日志相关命令整理">
-                Linux 日志相关命令整理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -654,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析外部堆栈跟踪"><span class="nav-number">1.</span> <span class="nav-text">分析外部堆栈跟踪</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回到前一个堆栈帧"><span class="nav-number">2.</span> <span class="nav-text">返回到前一个堆栈帧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制从当前方法返回"><span class="nav-number">3.</span> <span class="nav-text">强制从当前方法返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出一个异常"><span class="nav-number">4.</span> <span class="nav-text">抛出一个异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新加载修改的类"><span class="nav-number">5.</span> <span class="nav-text">重新加载修改的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-Java-Stream-操作"><span class="nav-number">6.</span> <span class="nav-text">分析 Java Stream 操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RDD-概念"><span class="nav-number">1.</span> <span class="nav-text">RDD 概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD-为什么会产生"><span class="nav-number">1.1.</span> <span class="nav-text">RDD 为什么会产生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD-概述"><span class="nav-number">1.2.</span> <span class="nav-text">RDD 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-RDD"><span class="nav-number">1.2.1.</span> <span class="nav-text">什么是 RDD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDD-的属性"><span class="nav-number">1.2.2.</span> <span class="nav-text">RDD 的属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD-弹性"><span class="nav-number">1.3.</span> <span class="nav-text">RDD 弹性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDD-特点"><span class="nav-number">1.4.</span> <span class="nav-text">RDD 特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分区"><span class="nav-number">1.4.1.</span> <span class="nav-text">分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只读"><span class="nav-number">1.4.2.</span> <span class="nav-text">只读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖"><span class="nav-number">1.4.3.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存"><span class="nav-number">1.4.4.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CheckPoint"><span class="nav-number">1.4.5.</span> <span class="nav-text">CheckPoint</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RDD-编程"><span class="nav-number">2.</span> <span class="nav-text">RDD 编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程模型"><span class="nav-number">2.1.</span> <span class="nav-text">编程模型</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -820,9 +847,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://moqimoqidea.github.io/2017/06/02/IDEA-Debugger/';
-          this.page.identifier = '2017/06/02/IDEA-Debugger/';
-          this.page.title = 'IDEA - Debugger 经验总结';
+          this.page.url = 'http://moqimoqidea.github.io/2017/08/04/Spark-Core-Analysis/';
+          this.page.identifier = '2017/08/04/Spark-Core-Analysis/';
+          this.page.title = 'Spark Core 应用解析';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://moqimoqidea.disqus.com/embed.js';
