@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moqimoqidea.github.io/"/>
-  <updated>2018-11-24T12:41:41.116Z</updated>
+  <updated>2018-11-24T12:43:40.190Z</updated>
   <id>http://moqimoqidea.github.io/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spark-SQL-Analysis</title>
+    <title>Spark SQL 应用解析</title>
     <link href="http://moqimoqidea.github.io/2017/08/10/Spark-SQL-Analysis/"/>
     <id>http://moqimoqidea.github.io/2017/08/10/Spark-SQL-Analysis/</id>
     <published>2017-08-10T12:37:27.000Z</published>
-    <updated>2018-11-24T12:41:41.116Z</updated>
+    <updated>2018-11-24T12:43:40.190Z</updated>
     
     <content type="html"><![CDATA[<p>本文主要解析部分 Spark SQL 的技术点。</p><a id="more"></a> <h1 id="Spark-SQL-概述"><a href="#Spark-SQL-概述" class="headerlink" title="Spark SQL 概述"></a>Spark SQL 概述</h1><h2 id="什么是-Spark-SQL"><a href="#什么是-Spark-SQL" class="headerlink" title="什么是 Spark SQL"></a>什么是 Spark SQL</h2><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/01-Spark-SQL-LOGO.png?raw=true" alt="01-Spark-SQL-LOGO"></p><p>T</p>]]></content>
     
