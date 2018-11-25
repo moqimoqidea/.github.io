@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/09-Parquet-File.png?raw=true">
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/10-Rule-And-RuleExecutor.png?raw=true">
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/11-Spark-SQL-Run-Architecture.png?raw=true">
-<meta property="og:updated_time" content="2018-11-25T05:18:01.450Z">
+<meta property="og:updated_time" content="2018-11-25T06:26:45.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark SQL 应用解析">
 <meta name="twitter:description" content="本文主要解析部分 Spark SQL 的技术点。">
@@ -415,7 +415,13 @@
 <a id="more"></a> 
 <h1 id="Spark-SQL-概述"><a href="#Spark-SQL-概述" class="headerlink" title="Spark SQL 概述"></a>Spark SQL 概述</h1><h2 id="什么是-Spark-SQL"><a href="#什么是-Spark-SQL" class="headerlink" title="什么是 Spark SQL"></a>什么是 Spark SQL</h2><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/01-Spark-SQL-LOGO.png?raw=true" alt="01-Spark-SQL-LOGO"></p>
 <p>Spark SQL是Spark用来处理结构化数据的一个模块，它提供了一个编程抽象叫做DataFrame并且作为分布式SQL查询引擎的作用。<br>我们已经学习了Hive，它是将Hive SQL转换成MapReduce然后提交到集群上执行，大大简化了编写MapReduce的程序的复杂性，由于MapReduce这种计算模型执行效率比较慢。所有Spark SQL的应运而生，它是将Spark SQL转换成RDD，然后提交到集群执行，执行效率非常快！</p>
-<p>Spark SQL 有四大特点：<strong>(1).易整合。(2).统一的数据访问方式。(3).兼容 Hive. (4).标准的数据连接。</strong></p>
+<p>Spark SQL 有四大特点：</p>
+<ol>
+<li>易整合。</li>
+<li>统一的数据访问方式。</li>
+<li>兼容 Hive.</li>
+<li>标准的数据连接。</li>
+</ol>
 <p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/02-Spark-SQL-Architecture.png?raw=true" alt="02-Spark-SQL-Architecture"></p>
 <p>SparkSQL可以看做是一个转换层，向下对接各种不同的结构化数据源，向上提供不同的数据访问方式。</p>
 <h2 id="RDD-vs-DataFrames-vs-DataSet"><a href="#RDD-vs-DataFrames-vs-DataSet" class="headerlink" title="RDD vs DataFrames vs DataSet"></a>RDD vs DataFrames vs DataSet</h2><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-SQL/03-RDD-DataFrames-DataSet.png?raw=true" alt="03-RDD-DataFrames-DataSet"></p>
