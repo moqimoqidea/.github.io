@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Data-Warehouse/16-Snowflake-Model.png?raw=true">
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Data-Warehouse/17-Snowflake-Model.png?raw=true">
 <meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Data-Warehouse/18-Star-Model.png?raw=true">
-<meta property="og:updated_time" content="2018-11-25T03:23:00.430Z">
+<meta property="og:updated_time" content="2018-11-25T05:53:31.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据仓库建设">
 <meta name="twitter:description" content="本文主要介绍数据仓库的起源和基本搭建。">
@@ -381,7 +381,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  11,492
+                  11,810
                 </span>
               
 
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  39
+                  40
                 </span>
               
             </div>
@@ -589,7 +589,140 @@
 <h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>第三个区别在于性能的不同。雪花模型在维度表、事实表之间的连接很多，因此性能方面会比较低。举个例子，如果你想要知道Advertiser 的详细信息，雪花模型就会请求许多信息，比如Advertiser Name、ID以及那些广告主和客户表的地址需要连接起来，然后再与事实表连接。<br>而星形模型的连接就少的多，在这个模型中，如果你需要上述信息，你只要将Advertiser的维度表和事实表连接即可。</p>
 <h3 id="ETL"><a href="#ETL" class="headerlink" title="ETL"></a>ETL</h3><p>雪花模型加载数据集市，因此ETL操作在设计上更加复杂，而且由于附属模型的限制，不能并行化。<br>星形模型加载维度表，不需要再维度之间添加附属模型，因此ETL就相对简单，而且可以实现高度的并行化。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>雪花模型使得维度分析更加容易，比如“针对特定的广告主，有哪些客户或者公司是在线的?”星形模型用来做指标分析更适合，比如“给定的一个客户他们的收入是多少?”</p>
-<h2 id="缓慢变化维"><a href="#缓慢变化维" class="headerlink" title="缓慢变化维"></a>缓慢变化维</h2>
+<h2 id="缓慢变化维"><a href="#缓慢变化维" class="headerlink" title="缓慢变化维"></a>缓慢变化维</h2><p>维度建模的数据仓库中，有一个概念叫 Slowly Changing Dimensions, 中文一般翻译成”缓慢变化维“，经常被简写为 SCD. 缓慢变化维的提出是因为在现实世界中，维度的属性并不是静态的，它会随着时间的流失发生缓慢的变化。这种随着时间发生变化的维度我们一般称之为缓慢变化维，并且把处理温度表的历史变化信息的问题称为处理缓慢变化维问题，有时也简称为处理 SCD 的问题。</p>
+<p>如何解决缓慢变化维带来的影响？</p>
+<h3 id="第一种方法"><a href="#第一种方法" class="headerlink" title="第一种方法"></a>第一种方法</h3><p>直接在原来维度的基础上进行更新，不会产生新的记录。</p>
+<p>更新前：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">emp_rid</th>
+<th style="text-align:center">emp_id</th>
+<th style="text-align:center">emp_name</th>
+<th style="text-align:center">position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101212</td>
+<td style="text-align:center">12345</td>
+<td style="text-align:center">Jack</td>
+<td style="text-align:center">Developer</td>
+</tr>
+</tbody>
+</table>
+<p>更新后：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">emp_rid</th>
+<th style="text-align:center">emp_id</th>
+<th style="text-align:center">emp_name</th>
+<th style="text-align:center">position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101212</td>
+<td style="text-align:center">12345</td>
+<td style="text-align:center">Jack</td>
+<td style="text-align:center">Manager</td>
+</tr>
+</tbody>
+</table>
+<p>position 发生变化。</p>
+<h3 id="第二种方法"><a href="#第二种方法" class="headerlink" title="第二种方法"></a>第二种方法</h3><p>不修改原有的数据，重新产生一条新的记录，这样就可以追溯所有的历史记录。</p>
+<p>更新前：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">emp_rid</th>
+<th style="text-align:center">emp_id</th>
+<th style="text-align:center">emp_name</th>
+<th style="text-align:center">position</th>
+<th style="text-align:center">start_date</th>
+<th style="text-align:center">end_date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101212</td>
+<td style="text-align:center">12345</td>
+<td style="text-align:center">Jack</td>
+<td style="text-align:center">Developer</td>
+<td style="text-align:center">2010-02-05</td>
+<td style="text-align:center">2012-06-12</td>
+</tr>
+</tbody>
+</table>
+<p>更新后：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">emp_rid</th>
+<th style="text-align:center">emp_id</th>
+<th style="text-align:center">emp_name</th>
+<th style="text-align:center">position</th>
+<th style="text-align:center">start_date</th>
+<th style="text-align:center">end_date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101212</td>
+<td style="text-align:center">12345</td>
+<td style="text-align:center">Jack</td>
+<td style="text-align:center">Manager</td>
+<td style="text-align:center">2012-06-12</td>
+</tr>
+</tbody>
+</table>
+<p>新增了一条记录。</p>
+<h3 id="第三种方法"><a href="#第三种方法" class="headerlink" title="第三种方法"></a>第三种方法</h3><p>直接在原来维度的基础上进行更新，不会产生新的记录但是会记录上一次的。</p>
+<p>更新前：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">emp_rid</th>
+<th style="text-align:center">emp_id</th>
+<th style="text-align:center">emp_name</th>
+<th style="text-align:center">position</th>
+<th style="text-align:center">old_position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101212</td>
+<td style="text-align:center">12345</td>
+<td style="text-align:center">Jack</td>
+<td style="text-align:center">Developer</td>
+<td style="text-align:center">null</td>
+</tr>
+</tbody>
+</table>
+<p>更新后：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">emp_rid</th>
+<th style="text-align:center">emp_id</th>
+<th style="text-align:center">emp_name</th>
+<th style="text-align:center">position</th>
+<th style="text-align:center">old_position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">101212</td>
+<td style="text-align:center">12345</td>
+<td style="text-align:center">Jack</td>
+<td style="text-align:center">Manager</td>
+<td style="text-align:center">Developer</td>
+</tr>
+</tbody>
+</table>
+<p>多一个字段，用来存放以前的 position</p>
+
       
     </div>
     
@@ -810,7 +943,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数据仓库"><span class="nav-number">1.</span> <span class="nav-text">什么是数据仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库的特点"><span class="nav-number">2.</span> <span class="nav-text">数据仓库的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是面向主题的"><span class="nav-number">2.1.</span> <span class="nav-text">数据是面向主题的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是集成的"><span class="nav-number">2.2.</span> <span class="nav-text">数据是集成的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是不可更新的"><span class="nav-number">2.3.</span> <span class="nav-text">数据是不可更新的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是随时间不断变化的"><span class="nav-number">2.4.</span> <span class="nav-text">数据是随时间不断变化的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库的发展历程"><span class="nav-number">3.</span> <span class="nav-text">数据仓库的发展历程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单报表阶段"><span class="nav-number">3.1.</span> <span class="nav-text">简单报表阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集市阶段"><span class="nav-number">3.2.</span> <span class="nav-text">数据集市阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库阶段"><span class="nav-number">3.3.</span> <span class="nav-text">数据仓库阶段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库和数据库的区别"><span class="nav-number">4.</span> <span class="nav-text">数据仓库和数据库的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库架构分层"><span class="nav-number">5.</span> <span class="nav-text">数据仓库架构分层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ODS层"><span class="nav-number">5.1.</span> <span class="nav-text">ODS层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PDW层"><span class="nav-number">5.2.</span> <span class="nav-text">PDW层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DM层"><span class="nav-number">5.3.</span> <span class="nav-text">DM层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APP层"><span class="nav-number">5.4.</span> <span class="nav-text">APP层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要对数据仓库分层"><span class="nav-number">5.5.</span> <span class="nav-text">为什么要对数据仓库分层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据质量检查"><span class="nav-number">6.</span> <span class="nav-text">数据质量检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元数据介绍"><span class="nav-number">7.</span> <span class="nav-text">元数据介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据的定义"><span class="nav-number">7.1.</span> <span class="nav-text">元数据的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据的存储方式"><span class="nav-number">7.2.</span> <span class="nav-text">元数据的存储方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据的作用"><span class="nav-number">7.3.</span> <span class="nav-text">元数据的作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数据模型"><span class="nav-number">8.</span> <span class="nav-text">什么是数据模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要数据模型"><span class="nav-number">9.</span> <span class="nav-text">为什么需要数据模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何建设数据仓库模型"><span class="nav-number">10.</span> <span class="nav-text">如何建设数据仓库模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库数据模型架构"><span class="nav-number">10.1.</span> <span class="nav-text">数据仓库数据模型架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库建模阶段划分"><span class="nav-number">10.2.</span> <span class="nav-text">数据仓库建模阶段划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#业务建模"><span class="nav-number">10.2.1.</span> <span class="nav-text">业务建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域概念建模"><span class="nav-number">10.2.2.</span> <span class="nav-text">领域概念建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑建模"><span class="nav-number">10.2.3.</span> <span class="nav-text">逻辑建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理建模"><span class="nav-number">10.2.4.</span> <span class="nav-text">物理建模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库建模方法"><span class="nav-number">10.3.</span> <span class="nav-text">数据仓库建模方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范式建模法"><span class="nav-number">10.3.1.</span> <span class="nav-text">范式建模法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维度建模法"><span class="nav-number">10.3.2.</span> <span class="nav-text">维度建模法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体建模法"><span class="nav-number">10.3.3.</span> <span class="nav-text">实体建模法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#维度建模"><span class="nav-number">11.</span> <span class="nav-text">维度建模</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">11.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用选择"><span class="nav-number">11.2.</span> <span class="nav-text">使用选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据优化"><span class="nav-number">11.2.1.</span> <span class="nav-text">数据优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务模型"><span class="nav-number">11.2.2.</span> <span class="nav-text">业务模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">11.2.3.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ETL"><span class="nav-number">11.2.4.</span> <span class="nav-text">ETL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">11.2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓慢变化维"><span class="nav-number">11.3.</span> <span class="nav-text">缓慢变化维</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数据仓库"><span class="nav-number">1.</span> <span class="nav-text">什么是数据仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库的特点"><span class="nav-number">2.</span> <span class="nav-text">数据仓库的特点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是面向主题的"><span class="nav-number">2.1.</span> <span class="nav-text">数据是面向主题的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是集成的"><span class="nav-number">2.2.</span> <span class="nav-text">数据是集成的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是不可更新的"><span class="nav-number">2.3.</span> <span class="nav-text">数据是不可更新的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据是随时间不断变化的"><span class="nav-number">2.4.</span> <span class="nav-text">数据是随时间不断变化的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库的发展历程"><span class="nav-number">3.</span> <span class="nav-text">数据仓库的发展历程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单报表阶段"><span class="nav-number">3.1.</span> <span class="nav-text">简单报表阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集市阶段"><span class="nav-number">3.2.</span> <span class="nav-text">数据集市阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库阶段"><span class="nav-number">3.3.</span> <span class="nav-text">数据仓库阶段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库和数据库的区别"><span class="nav-number">4.</span> <span class="nav-text">数据仓库和数据库的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据仓库架构分层"><span class="nav-number">5.</span> <span class="nav-text">数据仓库架构分层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ODS层"><span class="nav-number">5.1.</span> <span class="nav-text">ODS层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PDW层"><span class="nav-number">5.2.</span> <span class="nav-text">PDW层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DM层"><span class="nav-number">5.3.</span> <span class="nav-text">DM层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APP层"><span class="nav-number">5.4.</span> <span class="nav-text">APP层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要对数据仓库分层"><span class="nav-number">5.5.</span> <span class="nav-text">为什么要对数据仓库分层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据质量检查"><span class="nav-number">6.</span> <span class="nav-text">数据质量检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元数据介绍"><span class="nav-number">7.</span> <span class="nav-text">元数据介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据的定义"><span class="nav-number">7.1.</span> <span class="nav-text">元数据的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据的存储方式"><span class="nav-number">7.2.</span> <span class="nav-text">元数据的存储方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据的作用"><span class="nav-number">7.3.</span> <span class="nav-text">元数据的作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是数据模型"><span class="nav-number">8.</span> <span class="nav-text">什么是数据模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要数据模型"><span class="nav-number">9.</span> <span class="nav-text">为什么需要数据模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何建设数据仓库模型"><span class="nav-number">10.</span> <span class="nav-text">如何建设数据仓库模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库数据模型架构"><span class="nav-number">10.1.</span> <span class="nav-text">数据仓库数据模型架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库建模阶段划分"><span class="nav-number">10.2.</span> <span class="nav-text">数据仓库建模阶段划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#业务建模"><span class="nav-number">10.2.1.</span> <span class="nav-text">业务建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域概念建模"><span class="nav-number">10.2.2.</span> <span class="nav-text">领域概念建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑建模"><span class="nav-number">10.2.3.</span> <span class="nav-text">逻辑建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理建模"><span class="nav-number">10.2.4.</span> <span class="nav-text">物理建模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据仓库建模方法"><span class="nav-number">10.3.</span> <span class="nav-text">数据仓库建模方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#范式建模法"><span class="nav-number">10.3.1.</span> <span class="nav-text">范式建模法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维度建模法"><span class="nav-number">10.3.2.</span> <span class="nav-text">维度建模法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体建模法"><span class="nav-number">10.3.3.</span> <span class="nav-text">实体建模法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#维度建模"><span class="nav-number">11.</span> <span class="nav-text">维度建模</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">11.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用选择"><span class="nav-number">11.2.</span> <span class="nav-text">使用选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据优化"><span class="nav-number">11.2.1.</span> <span class="nav-text">数据优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务模型"><span class="nav-number">11.2.2.</span> <span class="nav-text">业务模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">11.2.3.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ETL"><span class="nav-number">11.2.4.</span> <span class="nav-text">ETL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">11.2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓慢变化维"><span class="nav-number">11.3.</span> <span class="nav-text">缓慢变化维</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种方法"><span class="nav-number">11.3.1.</span> <span class="nav-text">第一种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种方法"><span class="nav-number">11.3.2.</span> <span class="nav-text">第二种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三种方法"><span class="nav-number">11.3.3.</span> <span class="nav-text">第三种方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -844,7 +977,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.6k</span>
+    <span title="Site words total count">46.9k</span>
   
 </div>
 
