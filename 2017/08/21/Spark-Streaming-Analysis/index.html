@@ -70,12 +70,10 @@
 
 
 
-  <meta name="keywords" content="moqimoqidea" />
+  <meta name="keywords" content="Spark," />
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="Coding and Talking" type="application/atom+xml" />
@@ -85,18 +83,29 @@
 
 
 
-<meta name="description" content="Me今天在星巴克看见一个男人，没拿手机、没带平板、也没摆笔记本。他就坐在那里喝咖啡。像个精神病。">
-<meta name="keywords" content="moqi">
-<meta property="og:type" content="website">
-<meta property="og:title" content="About me">
-<meta property="og:url" content="http://moqimoqidea.github.io/about/index.html">
+<meta name="description" content="本文主要解析部分 Spark Streaming 的技术点。">
+<meta name="keywords" content="Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark Streaming 应用解析">
+<meta property="og:url" content="http://moqimoqidea.github.io/2017/08/21/Spark-Streaming-Analysis/index.html">
 <meta property="og:site_name" content="Coding and Talking">
-<meta property="og:description" content="Me今天在星巴克看见一个男人，没拿手机、没带平板、也没摆笔记本。他就坐在那里喝咖啡。像个精神病。">
+<meta property="og:description" content="本文主要解析部分 Spark Streaming 的技术点。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-02T13:04:25.000Z">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/01-Spark-Streaming-LOGO.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/02-Main-Application-Of-Spark-Streaming.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/03-Spark-Streaming-And-Spark-Engine.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/04-Spark-DStream.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/06-Spark-Streaming-Architecture.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/05-Storm-Sqout-And-Bolt.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/07-Storm-Architecture.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/08-Spark-Streaming-Abstract.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/09-DStream.png?raw=true">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/10-Driver-And-Worker.png?raw=true">
+<meta property="og:updated_time" content="2018-11-25T09:11:01.034Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About me">
-<meta name="twitter:description" content="Me今天在星巴克看见一个男人，没拿手机、没带平板、也没摆笔记本。他就坐在那里喝咖啡。像个精神病。">
+<meta name="twitter:title" content="Spark Streaming 应用解析">
+<meta name="twitter:description" content="本文主要解析部分 Spark Streaming 的技术点。">
+<meta name="twitter:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/01-Spark-Streaming-LOGO.png?raw=true">
 
 
 
@@ -126,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://moqimoqidea.github.io/about/"/>
+  <link rel="canonical" href="http://moqimoqidea.github.io/2017/08/21/Spark-Streaming-Analysis/"/>
 
 
 
 
 
-  <title>About me | Coding and Talking</title>
+  <title>Spark Streaming 应用解析 | Coding and Talking</title>
   
 
 
@@ -280,34 +289,250 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://moqimoqidea.github.io/2017/08/21/Spark-Streaming-Analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="moqi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/39821951?s=400&u=65c6d8145d7b591ca2051e7082fd842b56e62567&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding and Talking">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline">About me</h2>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h2 id="Me"><a href="#Me" class="headerlink" title="Me"></a>Me</h2><p><strong>今天在星巴克看见一个男人，没拿手机、没带平板、也没摆笔记本。他就坐在那里喝咖啡。像个精神病。</strong></p>
-
+          <h2 class="post-title" itemprop="name headline">Spark Streaming 应用解析</h2>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T15:40:12+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/21/Spark-Streaming-Analysis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/21/Spark-Streaming-Analysis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,138
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>本文主要解析部分 Spark Streaming 的技术点。</p>
+<a id="more"></a> 
+<h1 id="Spark-Streaming-概述"><a href="#Spark-Streaming-概述" class="headerlink" title="Spark Streaming 概述"></a>Spark Streaming 概述</h1><h2 id="什么是-Spark-Streaming"><a href="#什么是-Spark-Streaming" class="headerlink" title="什么是 Spark Streaming"></a>什么是 Spark Streaming</h2><p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/01-Spark-Streaming-LOGO.png?raw=true" alt="01-Spark-Streaming-LOGO"></p>
+<p>Spark Streaming类似于Apache Storm，用于流式数据的处理。根据其官方文档介绍，Spark Streaming有高吞吐量和容错能力强等特点。Spark Streaming支持的数据输入源很多，例如：Kafka、Flume、Twitter、ZeroMQ和简单的TCP套接字等等。数据输入后可以用Spark的高度抽象原语如：map、reduce、join、window等进行运算。而结果也能保存在很多地方，如HDFS，数据库等。另外Spark Streaming也能和MLlib（机器学习）以及Graphx完美融合。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/02-Main-Application-Of-Spark-Streaming.png?raw=true" alt="02-Main-Application-Of-Spark-Streaming"></p>
+<p>和Spark基于RDD的概念很相似，Spark Streaming使用离散化流(discretized stream)作为抽象表示，叫作DStream。DStream 是随时间推移而收到的数据的序列。在内部，每个时间区间收到的数据都作为 RDD 存在，而 DStream 是由这些 RDD 所组成的序列(因此 得名“离散化”)。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/03-Spark-Streaming-And-Spark-Engine.png?raw=true" alt="03-Spark-Streaming-And-Spark-Engine"></p>
+<p>DStream 可以从各种输入源创建，比如 Flume、Kafka 或者 HDFS。创建出来的DStream 支持两种操作，一种是转化操作(transformation)，会生成一个新的DStream，另一种是输出操作(output operation)，可以把数据写入外部系统中。DStream 提供了许多与 RDD 所支持的操作相类似的操作支持，还增加了与时间相关的新操作，比如滑动窗口。 </p>
+<h2 id="Spark-Streaming-特点"><a href="#Spark-Streaming-特点" class="headerlink" title="Spark Streaming 特点"></a>Spark Streaming 特点</h2><ol>
+<li>易用</li>
+<li>容错</li>
+<li>整合 Spark 体系</li>
+</ol>
+<h2 id="Spark-Streaming-与-Storm-对比"><a href="#Spark-Streaming-与-Storm-对比" class="headerlink" title="Spark Streaming 与 Storm 对比"></a>Spark Streaming 与 Storm 对比</h2><ul>
+<li><p>Spark Streaming：开发语言 scala, 编程模型 DStream.</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/04-Spark-DStream.png?raw=true" alt="04-Spark-DStream"></p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/06-Spark-Streaming-Architecture.png?raw=true" alt="06-Spark-Streaming-Architecture"></p>
+</li>
+<li><p>Strom：开发语言：Clojure, 编程模型：Spout/Bolt.</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/05-Storm-Sqout-And-Bolt.png?raw=true" alt="05-Storm-Sqout-And-Bolt"></p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/07-Storm-Architecture.png?raw=true" alt="07-Storm-Architecture"></p>
+</li>
+</ul>
+<h1 id="运行-Spark-Streaming"><a href="#运行-Spark-Streaming" class="headerlink" title="运行 Spark Streaming"></a>运行 Spark Streaming</h1><h2 id="Maven-依赖"><a href="#Maven-依赖" class="headerlink" title="Maven 依赖"></a>Maven 依赖</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spark-streaming_2.11&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;spark.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="程序如下"><a href="#程序如下" class="headerlink" title="程序如下"></a>程序如下</h2><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.moqi.streaming</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkConf</span></span><br><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.&#123;<span class="type">Seconds</span>, <span class="type">StreamingContext</span>&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WorldCount</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">"local[2]"</span>).setAppName(<span class="string">"NetworkWordCount"</span>)</span><br><span class="line">    <span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(conf, <span class="type">Seconds</span>(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a DStream that will connect to hostname:port, like localhost:9999</span></span><br><span class="line">    <span class="keyword">val</span> lines = ssc.socketTextStream(<span class="string">"master01"</span>, <span class="number">9999</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Split each line into words</span></span><br><span class="line">    <span class="keyword">val</span> words = lines.flatMap(_.split(<span class="string">" "</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">//import org.apache.spark.streaming.StreamingContext._ // not necessary since Spark 1.3</span></span><br><span class="line">    <span class="comment">// Count each word in each batch</span></span><br><span class="line">    <span class="keyword">val</span> pairs = words.map(word =&gt; (word, <span class="number">1</span>))</span><br><span class="line">    <span class="keyword">val</span> wordCounts = pairs.reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Print the first ten elements of each RDD generated in this DStream to the console</span></span><br><span class="line">    wordCounts.print()</span><br><span class="line"></span><br><span class="line">    ssc.start()             <span class="comment">// Start the computation</span></span><br><span class="line">    ssc.awaitTermination()  <span class="comment">// Wait for the computation to terminate</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照Spark Core中的方式进行打包，并将程序上传到Spark机器上。并运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-submit --class com.moqi.streaming.WorldCount ~/wordcount-jar-with-dependencies.jar</span><br></pre></td></tr></table></figure>
+<p>通过Netcat发送数据：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> TERMINAL 1:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Running Netcat</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> nc -lk 9999</span></span><br><span class="line"></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>如果程序运行时，log日志太多，可以将spark conf目录下的log4j文件里面的日志级别改成WARN。</p>
+<h1 id="架构与抽象"><a href="#架构与抽象" class="headerlink" title="架构与抽象"></a>架构与抽象</h1><p>Spark Streaming使用“微批次”的架构，把流式计算当作一系列连续的小规模批处理来对待。Spark Streaming从各种输入源中读取数据，并把数据分组为小的批次。新的批次按均匀的时间间隔创建出来。在每个时间区间开始的时候，一个新的批次就创建出来，在该区间内收到的数据都会被添加到这个批次中。在时间区间结束时，批次停止增长。时间区间的大小是由批次间隔这个参数决定的。批次间隔一般设在500毫秒到几秒之间，由应用开发者配置。每个输入批次都形成一个RDD，以 Spark 作业的方式处理并生成其他的 RDD。 处理的结果可以以批处理的方式传给外部系统。高层次的架构如图：</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/08-Spark-Streaming-Abstract.png?raw=true" alt="08-Spark-Streaming-Abstract"></p>
+<p>Spark Streaming的编程抽象是离散化流，也就是DStream。它是一个 RDD 序列，每个RDD代表数据流中一个时间片内的数据。 </p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/09-DStream.png?raw=true" alt="09-DStream"></p>
+<p>Spark Streaming在Spark的驱动器程序—工作节点的结构的执行过程如下图所示。Spark Streaming为每个输入源启动对 应的接收器。接收器以任务的形式运行在应用的执行器进程中，从输入源收集数据并保存为 RDD。它们收集到输入数据后会把数据复制到另一个执行器进程来保障容错性(默 认行为)。数据保存在执行器进程的内存中，和缓存 RDD 的方式一样。驱动器程序中的 StreamingContext 会周期性地运行 Spark 作业来处理这些数据，把数据与之前时间区间中的 RDD 进行整合。</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Streaming/10-Driver-And-Worker.png?raw=true" alt="10-Driver-And-Worker"></p>
+<h1 id="Spark-Streaming-解析"><a href="#Spark-Streaming-解析" class="headerlink" title="Spark Streaming 解析"></a>Spark Streaming 解析</h1>
       
     </div>
     
     
     
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="moqi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="moqi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/13/Data-Warehouse-Construction/" rel="next" title="数据仓库建设">
+                <i class="fa fa-chevron-left"></i> 数据仓库建设
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -316,6 +541,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -428,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Me"><span class="nav-number">1.</span> <span class="nav-text">Me</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark-Streaming-概述"><span class="nav-number">1.</span> <span class="nav-text">Spark Streaming 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Spark-Streaming"><span class="nav-number">1.1.</span> <span class="nav-text">什么是 Spark Streaming</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark-Streaming-特点"><span class="nav-number">1.2.</span> <span class="nav-text">Spark Streaming 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spark-Streaming-与-Storm-对比"><span class="nav-number">1.3.</span> <span class="nav-text">Spark Streaming 与 Storm 对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行-Spark-Streaming"><span class="nav-number">2.</span> <span class="nav-text">运行 Spark Streaming</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven-依赖"><span class="nav-number">2.1.</span> <span class="nav-text">Maven 依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序如下"><span class="nav-number">2.2.</span> <span class="nav-text">程序如下</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构与抽象"><span class="nav-number">3.</span> <span class="nav-text">架构与抽象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spark-Streaming-解析"><span class="nav-number">4.</span> <span class="nav-text">Spark Streaming 解析</span></a></li></ol></div>
             
 
           </div>
@@ -591,6 +830,18 @@
       <script id="dsq-count-scr" src="https://moqimoqidea.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://moqimoqidea.github.io/2017/08/21/Spark-Streaming-Analysis/';
+          this.page.identifier = '2017/08/21/Spark-Streaming-Analysis/';
+          this.page.title = 'Spark Streaming 应用解析';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://moqimoqidea.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
