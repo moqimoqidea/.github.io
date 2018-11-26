@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="moqimoqidea" />
+  <meta name="keywords" content="Spark," />
 
 
 
@@ -83,17 +83,20 @@
 
 
 
-<meta name="description" content="some codes, some words.">
-<meta name="keywords" content="moqi">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Coding and Talking">
-<meta property="og:url" content="http://moqimoqidea.github.io/tags/Data-Warehouse/index.html">
+<meta name="description" content="本文主要解析部分 Spark 调优的技术点。">
+<meta name="keywords" content="Spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spark-Tuning-Analysis">
+<meta property="og:url" content="http://moqimoqidea.github.io/2017/09/07/Spark-Tuning-Analysis/index.html">
 <meta property="og:site_name" content="Coding and Talking">
-<meta property="og:description" content="some codes, some words.">
+<meta property="og:description" content="本文主要解析部分 Spark 调优的技术点。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Tuning/01-Spark-Architecture.png?raw=true">
+<meta property="og:updated_time" content="2018-11-26T10:11:46.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Coding and Talking">
-<meta name="twitter:description" content="some codes, some words.">
+<meta name="twitter:title" content="Spark-Tuning-Analysis">
+<meta name="twitter:description" content="本文主要解析部分 Spark 调优的技术点。">
+<meta name="twitter:image" content="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Tuning/01-Spark-Architecture.png?raw=true">
 
 
 
@@ -123,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://moqimoqidea.github.io/tags/Data-Warehouse/"/>
+  <link rel="canonical" href="http://moqimoqidea.github.io/2017/09/07/Spark-Tuning-Analysis/"/>
 
 
 
 
 
-  <title>标签: Data-Warehouse | Coding and Talking</title>
+  <title>Spark-Tuning-Analysis | Coding and Talking</title>
   
 
 
@@ -157,7 +160,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,54 +278,222 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>Data-Warehouse<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://moqimoqidea.github.io/2017/09/07/Spark-Tuning-Analysis/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="moqi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/39821951?s=400&u=65c6d8145d7b591ca2051e7082fd842b56e62567&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coding and Talking">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/08/13/Data-Warehouse-Construction/" itemprop="url">
-              
-                <span itemprop="name">数据仓库建设</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Spark-Tuning-Analysis</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-13T10:03:25+08:00"
-              content="2017-08-13" >
-          08-13
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T17:20:48+08:00">
+                2017-09-07
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/07/Spark-Tuning-Analysis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/07/Spark-Tuning-Analysis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  349
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要解析部分 Spark 调优的技术点。</p>
+<a id="more"></a> 
+<h1 id="调优基本原则"><a href="#调优基本原则" class="headerlink" title="调优基本原则"></a>调优基本原则</h1><h2 id="基本概念和原则"><a href="#基本概念和原则" class="headerlink" title="基本概念和原则"></a>基本概念和原则</h2><p>首先，要搞清楚Spark的几个基本概念和原则，否则系统的性能调优无从谈起：</p>
+<p><img src="https://github.com/onefansofworld/hexo_images/blob/master/Spark/Spark-Tuning/01-Spark-Architecture.png?raw=true" alt="01-Spark-Architecture"></p>
+<p>每一台host上面可以并行N个worker，每一个worker下面可以并行M个executor，task们会被分配到executor上面去执行。Stage指的是一组并行运行的task，stage内部是不能出现shuffle的，因为shuffle的就像篱笆一样阻止了并行task的运行，遇到shuffle就意味着到了stage的边界。<br>CPU的core数量，每个executor可以占用一个或多个core，可以通过观察CPU的使用率变化来了解计算资源的使用情况，例如，很常见的一种浪费是一个executor占用了多个core，但是总的CPU使用率却不高（因为一个executor并不总能充分利用多核的能力），这个时候可以考虑让一个executor占用更少的core，同时worker下面增加更多的executor，或者一台host上面增加更多的worker来增加并行执行的executor的数量，从而增加CPU利用率。但是增加executor的时候需要考虑好内存消耗，因为一台机器的内存分配给越多的executor，每个executor的内存就越小，以致出现过多的数据spill over甚至out of memory的情况。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="moqi 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="moqi 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag"># Spark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/02/Spark-Kernel-Analysis/" rel="next" title="Spark 内核解析">
+                <i class="fa fa-chevron-left"></i> Spark 内核解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -330,6 +501,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -350,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -423,6 +617,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#调优基本原则"><span class="nav-number">1.</span> <span class="nav-text">调优基本原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念和原则"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念和原则</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -559,6 +769,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -576,6 +790,18 @@
       <script id="dsq-count-scr" src="https://moqimoqidea.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://moqimoqidea.github.io/2017/09/07/Spark-Tuning-Analysis/';
+          this.page.identifier = '2017/09/07/Spark-Tuning-Analysis/';
+          this.page.title = 'Spark-Tuning-Analysis';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://moqimoqidea.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

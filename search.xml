@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Spark-Tuning-Analysis]]></title>
+    <url>%2F2017%2F09%2F07%2FSpark-Tuning-Analysis%2F</url>
+    <content type="text"><![CDATA[本文主要解析部分 Spark 调优的技术点。 调优基本原则基本概念和原则首先，要搞清楚Spark的几个基本概念和原则，否则系统的性能调优无从谈起： 每一台host上面可以并行N个worker，每一个worker下面可以并行M个executor，task们会被分配到executor上面去执行。Stage指的是一组并行运行的task，stage内部是不能出现shuffle的，因为shuffle的就像篱笆一样阻止了并行task的运行，遇到shuffle就意味着到了stage的边界。CPU的core数量，每个executor可以占用一个或多个core，可以通过观察CPU的使用率变化来了解计算资源的使用情况，例如，很常见的一种浪费是一个executor占用了多个core，但是总的CPU使用率却不高（因为一个executor并不总能充分利用多核的能力），这个时候可以考虑让一个executor占用更少的core，同时worker下面增加更多的executor，或者一台host上面增加更多的worker来增加并行执行的executor的数量，从而增加CPU利用率。但是增加executor的时候需要考虑好内存消耗，因为一台机器的内存分配给越多的executor，每个executor的内存就越小，以致出现过多的数据spill over甚至out of memory的情况。]]></content>
+      <tags>
+        <tag>Spark</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Spark 内核解析]]></title>
     <url>%2F2017%2F09%2F02%2FSpark-Kernel-Analysis%2F</url>
     <content type="text"><![CDATA[本文主要解析部分 Spark 内核的技术点。]]></content>
