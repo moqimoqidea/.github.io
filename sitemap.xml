@@ -2,48 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://moqimoqidea.github.io/2017/09/07/Spark-Tuning-Analysis/</loc>
-    
-    <lastmod>2018-11-26T12:58:29.732Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://moqimoqidea.github.io/2017/09/02/Spark-Kernel-Analysis/</loc>
-    
-    <lastmod>2018-11-26T09:21:11.769Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://moqimoqidea.github.io/2017/08/21/Spark-Streaming-Analysis/</loc>
-    
-    <lastmod>2018-11-25T14:30:47.726Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://moqimoqidea.github.io/2017/08/13/Data-Warehouse-Construction/</loc>
-    
-    <lastmod>2018-11-25T14:07:51.504Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://moqimoqidea.github.io/2017/08/10/Spark-SQL-Analysis/</loc>
-    
-    <lastmod>2018-11-25T07:38:41.517Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://moqimoqidea.github.io/2017/08/04/Spark-Core-Analysis/</loc>
-    
-    <lastmod>2018-11-24T12:21:42.396Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://moqimoqidea.github.io/2017/06/16/JVM-GC-Development-Path/</loc>
     
     <lastmod>2018-11-23T05:59:40.630Z</lastmod>
